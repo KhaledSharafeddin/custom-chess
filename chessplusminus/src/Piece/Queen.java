@@ -1,7 +1,8 @@
 package Piece;
 
-public class Queen {
+public class Queen implements Piece{
     private static Game.Type type;
+
 
     public Queen(Game.Box game, Game.Player player){
 
@@ -11,7 +12,7 @@ public class Queen {
         return type;
     }
 
-    public static boolean isValidMove(Game.Box destinationBox){
+    public boolean isValidMove(Game.Box destinationBox){
         //TODO: do the case 
         return false;
     }
