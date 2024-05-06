@@ -1,7 +1,6 @@
 package Piece;
 
-
-public class Bishop {
+public class Bishop implements Piece {
 
     private static Game.Type type;
 

@@ -1,6 +1,6 @@
 package Piece;
 
-public class King {
+public class King implements Piece {
     private Game.Type type;
 
     public King(Game.Box box, Game.Player player) {
