@@ -10,18 +10,32 @@ public class Player {
     public boolean isLoser;
     public boolean isTurn;
     public int score;
-    public ArrayList<Piece> capturedPieces;
+    public Vector<Piece> capturedPieces; //this changed from Array -> Vector 
 
-    public Player(Color playeColor, boolean goesFirst) {
-        this.playerColor = playeColor;
+    //is captured pieces (enemy's?)
+
+
+
+    // public Player(){
+
+    // }
+
+    public Player(Color playerColor, boolean goesFirst) {
+        this.playerColor = playerColor;
         this.goesFirst = goesFirst;
     }
 
+    //i am not sure if we need both -> as it depends on the color 
     public Vector getAllyPieces(Color playerColor) {
-        
+        //change THis 
+        return capturedPieces;
     }
 
     public Vector getEnemyPieces(Color playerColor) {
+       if (playerColor == Color.WHITE){
+            
+       }
+        return capturedPieces;
         
     }
 
