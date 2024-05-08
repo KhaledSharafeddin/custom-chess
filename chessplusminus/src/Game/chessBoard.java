@@ -5,7 +5,6 @@ import Piece.Piece;
 
 public class chessBoard {
     private Box[] boxes;
-
     private void chessBoard() {
         
     }

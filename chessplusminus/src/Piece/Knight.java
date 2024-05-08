@@ -46,4 +46,5 @@ public class Knight implements Piece {
 
         return (deltaX == 1 && deltaY == 2) || (deltaX == 2 && deltaY == 1);
     }
+
 }

@@ -2,10 +2,9 @@ package Piece;
 
 import Game.Box;
 import Game.Player;
-import Game.chessBoard; 
+import Game.chessBoard;
 
 public class Pawn implements Piece {
-    private Game.Type type;
     private Box box;
     private Player player;
     private boolean isWhite;
@@ -13,7 +12,6 @@ public class Pawn implements Piece {
     private int row;
 
     public Pawn(Box box, Player player, boolean isWhite, int column, int row) {
-        this.type = Game.Type.PAWN;
         this.box = box;
         this.player = player;
         this.isWhite = isWhite;
@@ -35,10 +33,11 @@ public class Pawn implements Piece {
     public void setBox(Box destinationBox) {
         this.box = destinationBox;
     }
-
+   
     public Game.Type getType() {
-        return type;
+    return Game.Type.PAWN;
     }
+
 
     @Override
     public boolean isValidMove(Box destinationBox) {
