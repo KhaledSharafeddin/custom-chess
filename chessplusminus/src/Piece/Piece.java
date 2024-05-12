@@ -7,7 +7,13 @@ public interface Piece {
     Player getPlayer();
     Box getBox();
     void setBox(Box destinationBox);
+<<<<<<< HEAD
     boolean isValidMove(Box destinationBox);
+=======
+    static boolean isValidMove(Box destinationBox){
+        return true;
+    };
+>>>>>>> eb535ca5e8baaab170d97c182aa6c7b079d2d61e
     
 
 

@@ -7,7 +7,14 @@ import Piece.Piece;
 
 public class Player {
     public static Color playerColor;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> eb535ca5e8baaab170d97c182aa6c7b079d2d61e
     public boolean goesFirst;
+=======
+    public static boolean goesFirst;
+>>>>>>> f6fb83a (Co-authored-by: Emir Mut <emirmut1903@users.noreply.github.com>)
     public boolean isLoser;
     public boolean isTurn;
     public int score;

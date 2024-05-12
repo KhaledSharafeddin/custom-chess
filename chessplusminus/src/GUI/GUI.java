@@ -23,8 +23,13 @@ public class GUI {
         JPanel player2Panel = createPlayerPanel("Player 2's Timer", player2Timer);
 
         // Create move count labels
+<<<<<<< HEAD
         JLabel player1MoveCountLabel = new JLabel("Move Count: ", SwingConstants.CENTER);
         JLabel player2MoveCountLabel = new JLabel("Move Count: ", SwingConstants.CENTER);
+=======
+        JLabel player1MoveCountLabel = new JLabel("Move Count: 0", SwingConstants.CENTER);
+        JLabel player2MoveCountLabel = new JLabel("Move Count: 0", SwingConstants.CENTER);
+>>>>>>> eb535ca5e8baaab170d97c182aa6c7b079d2d61e
 
         // Create a panel to hold move count labels
         JPanel moveCountPanel = new JPanel(new GridLayout(2, 1));
