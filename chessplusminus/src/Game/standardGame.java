@@ -1,5 +1,5 @@
 package Game;
-
+//standartGame.java
 public class standardGame {
     public Player player1;
     public Player player2;
