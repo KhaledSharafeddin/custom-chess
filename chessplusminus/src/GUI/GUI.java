@@ -5,30 +5,48 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public interface GUI {
+public class GUI {
     public static void main(String[] args) {
         // Create the main frame
         JFrame frame = new JFrame("C+-: Custom Chess");
-        frame.setLayout(new GridBagLayout());
+        frame.setLayout(new BorderLayout());
 
-        // Maximize the frame to fullscreen
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        // Create and add the chess board panel
+        // Create a panel for the chess board with FlowLayout to center it
+        JPanel chessPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ChessBoardGui board = new ChessBoardGui();
-        frame.add(board);
+        chessPanel.add(board);
 
-        // Create and add player timers
+        // Create player timers
         PlayerTimer player1Timer = new PlayerTimer(5 * 60); // 5 minutes for player 1
         PlayerTimer player2Timer = new PlayerTimer(5 * 60); // 5 minutes for player 2
-        frame.add(player1Timer);
-        frame.add(player2Timer);
 
-        
+        // Create panels for player timers with labels
+        JPanel player1Panel = createPlayerPanel("Player 1's Timer", player1Timer);
+        JPanel player2Panel = createPlayerPanel("Player 2's Timer", player2Timer);
+
+        // Add player timer panels to the frame
+        frame.add(player1Panel, BorderLayout.WEST);
+        frame.add(player2Panel, BorderLayout.EAST);
+
+        // Add the chess panel to the center of the frame
+        frame.add(chessPanel, BorderLayout.CENTER);
 
         // Configure the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false); // Optional: You can set this to true if you want to allow resizing
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
+<<<<<<< HEAD
 }
+=======
+
+    // Helper method to create player timer panels with labels
+    private static JPanel createPlayerPanel(String labelText, PlayerTimer playerTimer) {
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel(labelText, SwingConstants.CENTER);
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(playerTimer, BorderLayout.CENTER);
+        return panel;
+    }
+}
+>>>>>>> 5e9590b (more changes to timer)
