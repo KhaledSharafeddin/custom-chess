@@ -2,8 +2,6 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class GUI {
     public static void main(String[] args) {
@@ -24,21 +22,31 @@ public class GUI {
         JPanel player1Panel = createPlayerPanel("Player 1's Timer", player1Timer);
         JPanel player2Panel = createPlayerPanel("Player 2's Timer", player2Timer);
 
-        // Add player timer panels to the frame
+        // Create move count labels
+        JLabel player1MoveCountLabel = new JLabel("Move Count: ", SwingConstants.CENTER);
+        JLabel player2MoveCountLabel = new JLabel("Move Count: ", SwingConstants.CENTER);
+
+        // Create a panel to hold move count labels
+        JPanel moveCountPanel = new JPanel(new GridLayout(2, 1));
+        moveCountPanel.add(player1MoveCountLabel);
+        moveCountPanel.add(player2MoveCountLabel);
+
+        // Add player timer panels and move count panel to the frame
         frame.add(player1Panel, BorderLayout.WEST);
+        frame.add(moveCountPanel, BorderLayout.CENTER);
         frame.add(player2Panel, BorderLayout.EAST);
 
         // Add the chess panel to the center of the frame
-        frame.add(chessPanel, BorderLayout.CENTER);
+        frame.add(chessPanel, BorderLayout.SOUTH);
 
         // Configure the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
-<<<<<<< HEAD
-}
-=======
+
+
+
 
     // Helper method to create player timer panels with labels
     private static JPanel createPlayerPanel(String labelText, PlayerTimer playerTimer) {
@@ -49,4 +57,4 @@ public class GUI {
         return panel;
     }
 }
->>>>>>> 5e9590b (more changes to timer)
+

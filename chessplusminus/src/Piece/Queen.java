@@ -1,11 +1,11 @@
 package Piece;
-
+//Queen.java
 import Game.Box;
 import Game.Player;
 
 public class Queen implements Piece {
     private Game.Type type;
-    private Box box;
+    private static Box box;
     private Player player;
 
     public Queen(Box box, Player player) {
@@ -34,7 +34,7 @@ public class Queen implements Piece {
     }
 
     @Override
-    public boolean isValidMove(Box destinationBox) {
+    public  boolean isValidMove(Box destinationBox) {
         int destX = destinationBox.getXPosition();
         int destY = destinationBox.getYPosition();
         int currX = box.getXPosition();

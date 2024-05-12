@@ -1,16 +1,17 @@
 package Game;
-
+//Player.java
 import java.util.ArrayList;
+import java.util.*;
 import java.util.Vector;
 import Piece.Piece;
 
 public class Player {
-    public Color playerColor;
+    public static Color playerColor;
     public boolean goesFirst;
     public boolean isLoser;
     public boolean isTurn;
     public int score;
-    public Vector<Piece> capturedPieces; //this changed from Array -> Vector 
+    public static List<Piece> capturedPieces; //this changed from Array -> Vector 
 
     //is captured pieces (enemy's?)
 
@@ -47,12 +48,18 @@ public class Player {
         return this.playerColor;
     }
 
-    public boolean isWhite() {
+    public static boolean isWhite() {
         if (playerColor == Color.WHITE) {
-            goesFirst = true;
             return true;
         }
-        goesFirst = false;
+        return false;
+    }
+
+    //we could do it when we starting the game as a condition 
+    public static boolean startFirst(){
+        if (Player.isWhite() == true){
+            return true;
+        }
         return false;
     }
 }

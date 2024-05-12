@@ -1,11 +1,11 @@
 package Piece;
-
+//Rook.java
 import Game.Box;
 import Game.Player;
 
 public class Rook implements Piece{
     private static Game.Type type;
-    private Box box;
+    private static Box box;
     private Player player;
   
 
@@ -35,14 +35,14 @@ public class Rook implements Piece{
     }
 
     @Override
-public boolean isValidMove(Box destinationBox) {
-    int destX = destinationBox.getXPosition();
-    int destY = destinationBox.getYPosition();
+    public boolean isValidMove(Box destinationBox) {
+        int destX = destinationBox.getXPosition();
+        int destY = destinationBox.getYPosition();
 
-    int currentX = box.getXPosition();
-    int currentY = box.getYPosition();
+        int currentX = box.getXPosition();
+        int currentY = box.getYPosition();
 
-    return destX == currentX || destY == currentY;
+        return destX == currentX || destY == currentY;
 }
 
 

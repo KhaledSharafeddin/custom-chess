@@ -1,7 +1,10 @@
 package Piece;
+//Knight.java
+import java.awt.image.BufferedImage;
 
 import Game.Box;
 import Game.Player;
+import GUI.ChessBoardGui;
 
 public class Knight implements Piece {
     private Game.Type type;
@@ -12,7 +15,21 @@ public class Knight implements Piece {
         this.box = box;
         this.player = player;
         this.type = Game.Type.KNIGHT;
+        
     }
+
+    /*
+     * public Knight(ChessBoardGui board, int col, int row, boolean isWhite) {
+     * super(board)
+     * this.col = col;
+     * this.row = row;
+     * this.xPos = col * board.squareSize;
+     * this.yPos = row * board.squareSize;
+     * this.isWhite = isWhite;
+     * this.name = "Knight"
+     * this.sprite = sheet.getSubImage(3*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
+     * }
+     */
     
     @Override
     public Player getPlayer() {

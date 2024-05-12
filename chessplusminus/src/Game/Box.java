@@ -1,14 +1,24 @@
 package Game;
+//Box.java
+import Piece.Piece;
 
 public class Box {
-    private int xPosition;
-    private int yPosition;
+     
+    public int xPosition;
+    public int yPosition;
+    public Piece piece;
 
     public Box(int xPosition, int yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
     }
-
+    public Piece getPiece() {
+        return this.piece;
+    }
+    public int[] getBox() {
+        return new int[] {xPosition,yPosition};
+    }
+    
     public int getXPosition() {
         return this.xPosition;
     }
@@ -24,4 +34,5 @@ public class Box {
     public void setYPosition(int yPosition) {
         this.yPosition = yPosition;
     }
+    
 }
