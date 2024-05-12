@@ -1,11 +1,11 @@
 package Piece;
-
+//Queen.java
 import Game.Box;
 import Game.Player;
 
 public class Queen implements Piece {
     private Game.Type type;
-    private Box box;
+    private static Box box;
     private Player player;
 
     public Queen(Box box, Player player) {
@@ -13,18 +13,6 @@ public class Queen implements Piece {
         this.player = player;
         this.type = Game.Type.QUEEN;
     }
-        /*
-     * public Knight(ChessBoardGui board, int col, int row, boolean isWhite) {
-     * super(board)
-     * this.col = col;
-     * this.row = row;
-     * this.xPos = col * board.squareSize;
-     * this.yPos = board.squareSize;
-     * this.isWhite = isWhite;
-     * this.name = "Queen"
-     * this.sprite = sheet.getSubImage(0*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
-     * }
-     */
 
     @Override
     public Player getPlayer() {
@@ -46,7 +34,7 @@ public class Queen implements Piece {
     }
 
     @Override
-    public boolean isValidMove(Box destinationBox) {
+    public  boolean isValidMove(Box destinationBox) {
         int destX = destinationBox.getXPosition();
         int destY = destinationBox.getYPosition();
         int currX = box.getXPosition();

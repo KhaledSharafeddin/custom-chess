@@ -5,6 +5,7 @@ import Game.Player;
 import Game.chessBoard;
 
 public class Pawn implements Piece {
+    public String type;
     private Box box;
     private Player player;
     private boolean isWhite;
@@ -19,6 +20,7 @@ public class Pawn implements Piece {
         this.row = row;
     }
 
+<<<<<<< HEAD
         /*
      * public Knight(ChessBoardGui board, int col, int row, boolean isWhite) {
      * super(board)
@@ -31,6 +33,8 @@ public class Pawn implements Piece {
      * this.sprite = sheet.getSubImage(5*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
      * }
      */
+=======
+>>>>>>> f6fb83a (Co-authored-by: Emir Mut <emirmut1903@users.noreply.github.com>)
 
     @Override
     public Player getPlayer() {

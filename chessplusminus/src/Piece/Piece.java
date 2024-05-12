@@ -15,6 +15,7 @@ public interface Piece {
     Player getPlayer();
     Box getBox();
     void setBox(Box destinationBox);
+<<<<<<< HEAD
     boolean isValidMove(Box destinationBox);
 
     BufferedImage sheet = loadSheet();
@@ -35,4 +36,20 @@ public interface Piece {
     int getXPos();
     int getYPos();
     Image getSprite();
+=======
+    static boolean isValidMove(Box destinationBox){
+        return true;
+    };
+    
+
+    
+
+    // if you want to check if a piece is in an array -> implement this 
+    
+    // @Override
+    // default int compareTo(Piece other) {
+    //     return this.getType().compareTo(other.getType());
+    //     return 0; // Placeholder, replace with actual comparison logic
+    // }
+>>>>>>> f6fb83a (Co-authored-by: Emir Mut <emirmut1903@users.noreply.github.com>)
 }

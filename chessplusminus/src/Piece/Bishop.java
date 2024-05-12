@@ -1,14 +1,12 @@
 package Piece;
-
+//Bishop.java
 import Game.Box;
 import Game.Player;
-
-import java.awt.Color;
-import java.awt.image.BufferedImage;
+import Game.chessBoard;
 
 public class Bishop implements Piece {
     private Game.Type type;
-    private Box box;
+    private static Box box;
     private Player player;
 
     public Bishop(Game.Box box, Game.Player player) {
@@ -16,19 +14,6 @@ public class Bishop implements Piece {
         this.player = player;
         this.type = Game.Type.BISHOP;
     }
-
-        /*
-     * public Bishop(ChessBoardGui board, int col, int row, boolean isWhite) {
-     * super(board)
-     * this.col = col;
-     * this.row = row;
-     * this.xPos = col * board.squareSize;
-     * this.yPos = board.squareSize;
-     * this.isWhite = isWhite;
-     * this.name = "Bishop"
-     * this.sprite = sheet.getSubImage(2*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
-     * }
-     */
 
     @Override
     public Player getPlayer() {
@@ -50,7 +35,7 @@ public class Bishop implements Piece {
     }
 
     @Override
-    public boolean isValidMove(Game.Box destinationBox) {
+    public  static boolean isValidMove(Game.Box destinationBox) {
         int destX = destinationBox.getXPosition();
         int destY = destinationBox.getYPosition();
 
@@ -62,4 +47,43 @@ public class Bishop implements Piece {
 
         return deltaX == deltaY;
     }
+
+    public boolean moveCollidesWithPieces(int targetX, int targetY) {
+        // Up left
+        if (Game.Box.getXPosition() > targetX && Game.Box.getYPosition() > targetY) {
+            for (int i = 1; i < Math.abs(Game.Box.getXPosition() - targetX); i++) {
+                if (chessBoard.getPiece(Box(Game.Box.getXPosition() - i, Game.Box.getYPosition() - i)) != null) {
+                    return true;
+                }
+            }
+        }
+        // Up right
+        if (Game.Box.getXPosition() < targetX && Game.Box.getYPosition() > targetY) {
+            for (int i = 1; i < Math.abs(Game.Box.getXPosition() - targetX); i++) {
+                if (chessBoard.getPiece(Game.Box.getXPosition() + i, Game.Box.getYPosition() - i) != null) {
+                    return true;
+                }
+            }
+        }
+        // Down left
+        if (Game.Box.getXPosition() > targetX && Game.Box.getYPosition() < targetY) {
+            for (int i = 1; i < Math.abs(Game.Box.getXPosition() - targetX); i++) {
+                if (board.getPiece(Game.Box.getXPosition() - i, Game.Box.getYPosition() + i) != null) {
+                    return true;
+                }
+            }
+        }
+        // Down right
+        if (Game.Box.getXPosition() < targetX && Game.Box.getYPosition() < targetY) {
+            for (int i = 1; i < Math.abs(Game.Box.getXPosition() - targetX); i++) {
+                if (board.getPiece(Game.Box.getXPosition() + i, Game.Box.getYPosition() + i) != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    
 }
+     
