@@ -13,6 +13,19 @@ public class King implements Piece {
         this.player = player;
         this.type = Game.Type.KING;
     }
+
+        /*
+     * public King(ChessBoardGui board, int col, int row, boolean isWhite) {
+     * super(board)
+     * this.col = col;
+     * this.row = row;
+     * this.xPos = col * board.squareSize;
+     * this.yPos = board.squareSize;
+     * this.isWhite = isWhite;
+     * this.name = "King"
+     * this.sprite = sheet.getSubImage(1*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
+     * }
+     */
     
     @Override
     public Player getPlayer() {

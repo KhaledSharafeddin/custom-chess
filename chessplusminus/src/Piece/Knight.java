@@ -15,12 +15,21 @@ public class Knight implements Piece {
         this.box = box;
         this.player = player;
         this.type = Game.Type.KNIGHT;
-        //this.isWhite = isWhite;
-        //see sprite in Pieces, 3 is the pos of Knight in the png.
-        //if it is white, it takes 1st row, else, 2nd row (black)
-        //isWhite to be implemented?
-        this.sprite = sheet.getSubimage(3*sheetScale,isWhite ? 0 : sheetScale, sheetScale).getScaledInstance(ChessBoardGui.squareSize, sheetScale, BufferedImage.SCALE_SMOOTH);
+        
     }
+
+    /*
+     * public Knight(ChessBoardGui board, int col, int row, boolean isWhite) {
+     * super(board)
+     * this.col = col;
+     * this.row = row;
+     * this.xPos = col * board.squareSize;
+     * this.yPos = board.squareSize;
+     * this.isWhite = isWhite;
+     * this.name = "Knight"
+     * this.sprite = sheet.getSubImage(3*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
+     * }
+     */
     
     @Override
     public Player getPlayer() {

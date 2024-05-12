@@ -19,6 +19,19 @@ public class Pawn implements Piece {
         this.row = row;
     }
 
+        /*
+     * public Knight(ChessBoardGui board, int col, int row, boolean isWhite) {
+     * super(board)
+     * this.col = col;
+     * this.row = row;
+     * this.xPos = col * board.squareSize;
+     * this.yPos = board.squareSize;
+     * this.isWhite = isWhite;
+     * this.name = "Pawn"
+     * this.sprite = sheet.getSubImage(5*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
+     * }
+     */
+
     @Override
     public Player getPlayer() {
         return player;

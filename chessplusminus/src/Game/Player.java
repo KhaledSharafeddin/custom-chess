@@ -5,7 +5,7 @@ import java.util.Vector;
 import Piece.Piece;
 
 public class Player {
-    public Color playerColor;
+    public static Color playerColor;
     public boolean goesFirst;
     public boolean isLoser;
     public boolean isTurn;
