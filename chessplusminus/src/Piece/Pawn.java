@@ -1,21 +1,9 @@
 package Piece;
-<<<<<<< HEAD
-//Piece.java
-=======
 //Pawn.java
 import Game.Box;
->>>>>>> eb535ca5e8baaab170d97c182aa6c7b079d2d61e
 import Game.Player;
-import Game.Box;
+import Game.chessBoard;
 
-<<<<<<< HEAD
-public interface Piece {
-    Player getPlayer();
-    Box getBox();
-    void setBox(Box destinationBox);
-    boolean isValidMove(Box destinationBox);
-    
-=======
 public class Pawn implements Piece {
     public String type;
     private Box box;
@@ -51,15 +39,76 @@ public class Pawn implements Piece {
     public Game.Type getType() {
     return Game.Type.PAWN;
     }
->>>>>>> eb535ca5e8baaab170d97c182aa6c7b079d2d61e
 
 
+    @Override
+    public boolean isValidMove(Box destinationBox) {
+        int destXPosition = destinationBox.getXPosition();
+        int destYPosition = destinationBox.getYPosition(); 
 
-    // if you want to check if a piece is in an array -> implement this 
-    
-    // @Override
-    // default int compareTo(Piece other) {
-    //     return this.getType().compareTo(other.getType());
-    //     return 0; // Placeholder, replace with actual comparison logic
-    // }
+        if (isWhite && destXPosition == column && destYPosition == row - 1) {
+            return true;
+        }
+
+        if (!isWhite && destXPosition == column && destYPosition == row + 1) {
+            return true;
+        }
+
+        if (isWhite && row == 6 && destXPosition == column && destYPosition == row - 2) {
+            return true;
+        }
+
+        if (!isWhite && row == 1 && destXPosition == column && destYPosition == row + 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean pawnCanCapture(Box destinationBox) {
+        int destXPosition = destinationBox.getXPosition(); 
+        int destYPosition = destinationBox.getYPosition(); 
+
+        if (isWhite && Math.abs(destXPosition - column) == 1 && destYPosition == row - 1) {
+            return true;
+        }
+
+        if (!isWhite && Math.abs(destXPosition - column) == 1 && destYPosition == row + 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean pawnCanMoveTwo(Box destinationBox) {
+
+        if (isWhite && row == 6 && destinationBox.getXPosition() == column && destinationBox.getYPosition() == row - 2) {
+            return true;
+        }
+
+        if (!isWhite && row == 1 && destinationBox.getXPosition() == column && destinationBox.getYPosition() == row + 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void promotion(String newPieceType, chessBoard board) { 
+        if ((isWhite && row == 0) || (!isWhite && row == 7)) {
+            Piece newPiece = null;
+            switch (newPieceType) {
+                case "Queen":
+                    newPiece = new Queen(board.getBox(column, row), player); 
+                    break;
+                case "Rook":
+                    newPiece = new Rook(board.getBox(column, row), player); 
+                    break;
+              
+            }
+
+            if (newPiece != null) {
+                board.replacePiece(this, newPiece);
+            }
+        }
+    }
 }

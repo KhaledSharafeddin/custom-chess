@@ -24,11 +24,7 @@ public class Knight implements Piece {
      * this.col = col;
      * this.row = row;
      * this.xPos = col * board.squareSize;
-<<<<<<< HEAD
      * this.yPos = row * board.squareSize;
-=======
-     * this.yPos = board.squareSize;
->>>>>>> eb535ca5e8baaab170d97c182aa6c7b079d2d61e
      * this.isWhite = isWhite;
      * this.name = "Knight"
      * this.sprite = sheet.getSubImage(3*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
