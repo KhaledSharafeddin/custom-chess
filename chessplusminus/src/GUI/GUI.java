@@ -36,9 +36,7 @@ public class GUI {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
-<<<<<<< HEAD
-}
-=======
+
 
     // Helper method to create player timer panels with labels
     private static JPanel createPlayerPanel(String labelText, PlayerTimer playerTimer) {
@@ -49,4 +47,3 @@ public class GUI {
         return panel;
     }
 }
->>>>>>> 5e9590b (more changes to timer)
