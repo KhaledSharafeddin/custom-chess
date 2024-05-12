@@ -1,7 +1,10 @@
 package Piece;
 
+import java.awt.image.BufferedImage;
+
 import Game.Box;
 import Game.Player;
+import GUI.ChessBoardGui;
 
 public class Knight implements Piece {
     private Game.Type type;
@@ -12,6 +15,11 @@ public class Knight implements Piece {
         this.box = box;
         this.player = player;
         this.type = Game.Type.KNIGHT;
+        //this.isWhite = isWhite;
+        //see sprite in Pieces, 3 is the pos of Knight in the png.
+        //if it is white, it takes 1st row, else, 2nd row (black)
+        //isWhite to be implemented?
+        this.sprite = sheet.getSubimage(3*sheetScale,isWhite ? 0 : sheetScale, sheetScale).getScaledInstance(sheetScale, sheetScale, BufferedImage.SCALE_SMOOTH);
     }
     
     @Override
