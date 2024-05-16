@@ -1,17 +1,20 @@
 package Piece;
 //Rook.java
 import Game.Box;
+import Game.Color;
 import Game.Player;
 
 public class Rook implements Piece{
     private static Game.Type type;
     private static Box box;
     private Player player;
+    private Color color;
   
 
-    public Rook(Game.Box box, Game.Player player){
-        this.box = box;
+    public Rook(Box box, Color color){
         this.player = player;
+        this.box = box;
+        this.color = color;
     } 
 
     @Override
@@ -44,6 +47,11 @@ public class Rook implements Piece{
 
         return destX == currentX || destY == currentY;
 }
+
+    @Override
+    public Color getColor() {
+        return color;
+    }
 
 
 }

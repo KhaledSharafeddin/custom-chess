@@ -3,20 +3,22 @@ package Piece;
 import java.awt.image.BufferedImage;
 
 import Game.Box;
+import Game.Color;
 import Game.Player;
 import GUI.ChessBoardGui;
 
 public class Knight implements Piece {
-    private Game.Type type;
-    private Box box;
+    private static Game.Type type;
+    private static Box box;
     private Player player;
+    private Color color;
+  
 
-    public Knight(Game.Box box, Game.Player player) {
+    public Knight( Box box, Color color){
+       // this.player = player;
         this.box = box;
-        this.player = player;
-        this.type = Game.Type.KNIGHT;
-        
-    }
+        this.color = color;
+    } 
 
     /*
      * public Knight(ChessBoardGui board, int col, int row, boolean isWhite) {
@@ -48,6 +50,10 @@ public class Knight implements Piece {
 
     public Game.Type getType() {
         return type;
+    }
+    @Override
+    public Color getColor() {
+        return color;
     }
 
     @Override

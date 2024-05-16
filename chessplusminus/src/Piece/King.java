@@ -1,17 +1,20 @@
 package Piece;
 //King.java
 import Game.Box;
+import Game.Color;
 import Game.Player;
 
 public class King implements Piece {
-    private Game.Type type;
-    private Box box;
+    private static Game.Type type;
+    private static Box box;
     private Player player;
+    private Color color;
+  
 
-    public King(Game.Box box, Game.Player player) {
+    public King(Box box, Color color){
+        //this.player = player;
         this.box = box;
-        this.player = player;
-        this.type = Game.Type.KING;
+        this.color = color;
     }
     
     @Override
@@ -33,6 +36,10 @@ public class King implements Piece {
         return type;
     }
 
+     @Override
+    public Color getColor() {
+        return color;
+    }
     @Override
     public boolean isValidMove(Game.Box destinationBox) {
         int destX = destinationBox.getXPosition();

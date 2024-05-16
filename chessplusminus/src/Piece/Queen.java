@@ -2,16 +2,19 @@ package Piece;
 //Queen.java
 import Game.Box;
 import Game.Player;
+import Game.Color;
 
 public class Queen implements Piece {
     private Game.Type type;
     private static Box box;
     private Player player;
+    private Color color;
 
-    public Queen(Box box, Player player) {
+    public Queen(Box box, Color color) {
         this.box = box;
-        this.player = player;
+        //this.player = player;
         this.type = Game.Type.QUEEN;
+        this.color = color;
     }
 
     @Override
@@ -31,6 +34,10 @@ public class Queen implements Piece {
 
     public Game.Type getType() {
         return type;
+    }
+    @Override
+    public Color getColor() {
+        return color;
     }
 
     @Override

@@ -1,23 +1,26 @@
 package Piece;
+import GUI.ChessBoardGui;
 //Pawn.java
 import Game.Box;
 import Game.Player;
-import Game.chessBoard;
+import Game.Color;
+//import Game.chessBoard;
 
 public class Pawn implements Piece {
     public String type;
     private Box box;
     private Player player;
     private boolean isWhite;
-    private int column;
-    private int row;
+   
+    private Color color;
+    private boolean firstMove; //tracks whether pawn's first move 
 
-    public Pawn(Box box, Player player, boolean isWhite, int column, int row) {
+    public Pawn(Box box, Color color) {
         this.box = box;
         this.player = player;
-        this.isWhite = isWhite;
-        this.column = column;
-        this.row = row;
+        //this.isWhite = isWhite;
+        this.color = color;
+      
     }
 
 
@@ -34,46 +37,63 @@ public class Pawn implements Piece {
     @Override
     public void setBox(Box destinationBox) {
         this.box = destinationBox;
+        firstMove = false; //pawn cannot move 2 steps after first move 
     }
    
     public Game.Type getType() {
     return Game.Type.PAWN;
     }
 
+    @Override
+    public Color getColor() {
+        return color;
+    }
+
 
     @Override
-    public boolean isValidMove(Box destinationBox) {
-        int destXPosition = destinationBox.getXPosition();
-        int destYPosition = destinationBox.getYPosition(); 
+   public boolean isValidMove(Box destinationPosition) {
+        int deltaRow = Math.abs(destinationPosition.getYPosition() - getBox().getYPosition());
+        int deltaCol = Math.abs(destinationPosition.getXPosition() - getBox().getYPosition());
 
-        if (isWhite && destXPosition == column && destYPosition == row - 1) {
-            return true;
+        // Standard one or two squares move forward (depending on first move)
+        if (color == Color.WHITE) {
+            if (deltaRow == 1 && deltaCol == 0 && getBox().getPiece() == null) {
+                return true;
+            } else if (deltaRow == 2 && deltaCol == 0 && firstMove && getBox().getPiece() == null && 
+                       getBox().getYPosition() == 6 && getBox().getPieceAt(1) == null) {
+                return true;
+            }
+        } else { // Black pawn moves down the board
+            if (deltaRow == 1 && deltaCol == 0 && getBox().getPiece() == null) {
+                return true;
+            } else if (deltaRow == 2 && deltaCol == 0 && firstMove && getBox().getYPosition() == 1 && 
+                       getBox().getPiece() == null && getBox().getPieceAt(-1) == null) {
+                return true;
+            }
         }
 
-        if (!isWhite && destXPosition == column && destYPosition == row + 1) {
+        // Capturing diagonally
+        if (deltaRow == 1 && deltaCol == 1 && getBox().getPieceAt(1, 1) != null && 
+                getBox().getPieceAt(1, 1).getColor() != color) {
             return true;
-        }
-
-        if (isWhite && row == 6 && destXPosition == column && destYPosition == row - 2) {
-            return true;
-        }
-
-        if (!isWhite && row == 1 && destXPosition == column && destYPosition == row + 2) {
+        } else if (deltaRow == 1 && deltaCol == 1 && getBox().getPieceAt(-1, 1) != null && 
+                   getBox().getPieceAt(-1, 1).getColor() != color) {
             return true;
         }
 
         return false;
     }
 
+
     public boolean pawnCanCapture(Box destinationBox) {
         int destXPosition = destinationBox.getXPosition(); 
         int destYPosition = destinationBox.getYPosition(); 
 
-        if (isWhite && Math.abs(destXPosition - column) == 1 && destYPosition == row - 1) {
+        if (isWhite && Math.abs(destXPosition - box.xPosition) == 1 && destYPosition == box.yPosition - 1) {
             return true;
         }
 
-        if (!isWhite && Math.abs(destXPosition - column) == 1 && destYPosition == row + 1) {
+        if (!isWhite && Math.abs(destXPosition - box.xPosition) == 1 && destYPosition == box.yPosition + 1) {
             return true;
         }
 
@@ -82,26 +102,26 @@ public class Pawn implements Piece {
 
     public boolean pawnCanMoveTwo(Box destinationBox) {
 
-        if (isWhite && row == 6 && destinationBox.getXPosition() == column && destinationBox.getYPosition() == row - 2) {
+        if (isWhite && box.yPosition == 6 && destinationBox.getXPosition() == box.xPosition && destinationBox.getYPosition() == box.yPosition - 2) {
             return true;
         }
 
-        if (!isWhite && row == 1 && destinationBox.getXPosition() == column && destinationBox.getYPosition() == row + 2) {
+        if (!isWhite && box.yPosition == 1 && destinationBox.getXPosition() == box.xPosition && destinationBox.getYPosition() == box.yPosition + 2) {
             return true;
         }
 
         return false;
     }
 
-    public void promotion(String newPieceType, chessBoard board) { 
-        if ((isWhite && row == 0) || (!isWhite && row == 7)) {
+    public void promotion(String newPieceType, ChessBoardGui board) { 
+        if ((isWhite && box.yPosition == 0) || (!isWhite && box.yPosition == 7)) {
             Piece newPiece = null;
             switch (newPieceType) {
                 case "Queen":
-                    newPiece = new Queen(board.getBox(column, row), player); 
+                    newPiece = new Queen(box, color); 
                     break;
                 case "Rook":
-                    newPiece = new Rook(board.getBox(column, row), player); 
+                    newPiece = new Rook (box, color); 
                     break;
               
             }

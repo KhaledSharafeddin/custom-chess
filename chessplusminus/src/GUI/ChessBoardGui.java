@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 
+import Game.Move;
+import Game.Logic;
 import Piece.Piece;
 import Piece.Queen;
 import Piece.Rook;
@@ -9,6 +11,9 @@ import Piece.Bishop;
 import Piece.King;
 import Piece.Knight;
 import Piece.Pawn;
+import GUI.Input;
+import Game.Color;
+import Game.Box
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,19 +21,17 @@ import java.util.ArrayList;
 import Piece.*;
 
 public class ChessBoardGui extends JPanel {
-    
-    public int tileSize = 85;
 
+    public static final int TILE_SIZE = 85; 
     ArrayList<Piece> pieceList = new ArrayList<>();
-
     int row = 8;
     int column = 8;
+    private Piece[][] board; 
     public Piece selectedPiece;
-
     Input input = new Input(this);
     public ChessBoardGui(){
 
-        this.setPreferredSize(new Dimension(column *tileSize, row *tileSize));
+        this.setPreferredSize(new Dimension(column *TILE_SIZE, row *TILE_SIZE));
         this.setBackground(Color.green);
         addPiece();
     }
@@ -41,49 +44,39 @@ public class ChessBoardGui extends JPanel {
         this.addMouseMotionListener(input);
     }
 
-    public void addPieces(){
+  
 
-        //Black pieces
-        pieceList.add(new Rook(this,0,0,false)); //board, row, col, isWhite
-        pieceList.add(new Knight(this,1,0,false));
-        pieceList.add(new Bishop(this,2,0,false));
-        pieceList.add(new King(this,3,0,false));
-        pieceList.add(new Queen(this,4,0,false));
-        pieceList.add(new Bishop(this,5,0,false));
-        pieceList.add(new Knight(this,6,0,false));
-        pieceList.add(new Rook(this,7,0,false));
+    public void addPieces() {
 
-        pieceList.add(new Pawn(this,0,1,false));
-        pieceList.add(new Pawn(this,1,1,false));
-        pieceList.add(new Pawn(this,2,1,false));
-        pieceList.add(new Pawn(this,3,1,false));
-        pieceList.add(new Pawn(this,4,1,false));
-        pieceList.add(new Pawn(this,5,1,false));
-        pieceList.add(new Pawn(this,6,1,false));
-        pieceList.add(new Pawn(this,7,1,false));
-
-        //White pieces
-        pieceList.add(new Rook(this,0,7,true));
-        pieceList.add(new Knight(this,1,7,true));
-        pieceList.add(new Bishop(this,2,7,true));
-        pieceList.add(new King(this,4,7,true));
-        pieceList.add(new Queen(this,3,7,true));
-        pieceList.add(new Bishop(this,5,7,true));
-        pieceList.add(new Knight(this,6,7,true));
-        pieceList.add(new Rook(this,7,7,true));
-
-        pieceList.add(new Pawn(this,0,6,true));
-        pieceList.add(new Pawn(this,1,6,true));
-        pieceList.add(new Pawn(this,2,6,true));
-        pieceList.add(new Pawn(this,3,6,true));
-        pieceList.add(new Pawn(this,4,6,true));
-        pieceList.add(new Pawn(this,5,6,true));
-        pieceList.add(new Pawn(this,6,6,true));
-        pieceList.add(new Pawn(this,7,6,true));
-        */
+        // Black pieces
+        pieceList.add(new Rook(new Box(0, 0), Color.BLACK));
+        pieceList.add(new Knight(new Box(1, 0), Color.BLACK));
+        pieceList.add(new Bishop(new Box(2, 0), Color.BLACK));
+        pieceList.add(new King(new Box(3, 0), Color.BLACK));
+        pieceList.add(new Queen(new Box(4, 0), Color.BLACK));
+        pieceList.add(new Bishop(new Box(5, 0), Color.BLACK));
+        pieceList.add(new Knight(new Box(6, 0), Color.BLACK));
+        pieceList.add(new Rook(new Box(7, 0), Color.BLACK));
+    
+        for (int col = 0; col < 8; col++) {
+            pieceList.add(new Pawn(new Box(col, 1), Color.BLACK)); // Black pawns on rank 1
+        }
+    
+        // White pieces
+        pieceList.add(new Rook(new Box(0, 7), Color.WHITE));
+        pieceList.add(new Knight(new Box(1, 7), Color.WHITE));
+        pieceList.add(new Bishop(new Box(2, 7), Color.WHITE));
+        pieceList.add(new King(new Box(4, 7), Color.WHITE));
+        pieceList.add(new Queen(new Box(3, 7), Color.WHITE));
+        pieceList.add(new Bishop(new Box(5, 7), Color.WHITE));
+        pieceList.add(new Knight(new Box(6, 7), Color.WHITE));
+        pieceList.add(new Rook(new Box(7, 7), Color.WHITE));
+    
+        for (int col = 0; col < 8; col++) {
+            pieceList.add(new Pawn(new Box(col, 6), Color.WHITE)); // White pawns on rank 6
+        }
     }
 
-    
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
 
@@ -91,7 +84,7 @@ public class ChessBoardGui extends JPanel {
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < column; c++) {
                 g2d.setColor((c + r) % 2 == 0 ? new Color(150, 53, 53, 255) : new Color(175, 81, 81));
-                g2d.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+                g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
         //Paint the pieces
@@ -106,11 +99,59 @@ public class ChessBoardGui extends JPanel {
                 for (int c = 0; c < column; c++) {
                     if (isValidMove(new Move(this, selectedPiece, c, r))) {
                         g2d.setColor(new Color(2, 255, 0, 107));
-                        g2d.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+                        g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
                     }
                 }
             }
         }
 
     }
+    public boolean isValidMove(Move move) {
+        return Logic.isMoveValid(this, move.getPiece(), move.getNewRow(), move.getNewCol());
+    }
+
+    public boolean inChessBoard(int row, int col) {
+        return (row >= 0 && row < this.row) && (col >= 0 && col < this.column);
+    }
+    public ArrayList<Move> getValidMoves(Piece selectedPiece) {
+        ArrayList<Move> validMoves = new ArrayList<>();
+        for (int row = 0; row < this.row; row++) {
+            for (int col = 0; col < this.column; col++) {
+                if (isValidMove(new Move(this, selectedPiece, row, col))) {
+                    validMoves.add(new Move(this, selectedPiece, row, col));
+                }
+            }
+        }
+        return validMoves;
+    }
+    public Piece getPiece(int row, int col) {
+        for (Piece piece : pieceList) {
+            if ((piece.getBox()).getYPosition() == row && (piece.getBox()).getXPosition() == col) {
+                return piece;
+            }
+        }
+        return null; // No piece found at that position
+    }
+    public Piece getBox(int row, int col) {
+        if (isValidSquare(row, col)) { // Check for valid square coordinates
+            return board[row][col];
+        } else {
+            return null; // Return null if coordinates are outside the board
+        }
+    }
+
+    public void replacePiece(Piece oldPiece, Piece newPiece) {
+        if (isValidSquare(oldPiece.getBox().yPosition, oldPiece.getBox().xPosition)) {
+            board[oldPiece.getBox().yPosition][oldPiece.getBox().xPosition] = newPiece;
+            repaint(); // Trigger a repaint to update the visual board
+        } else {
+            // Handle potential error (no selected square)
+            System.out.println("No square selected for replacePiece");
+        }
+    }
+    private boolean isValidSquare(int r, int c) {
+        // Implement logic to check if (row, col) is within board boundaries
+        return r >= 0 && r < row && c >= 0 && c < column;
+    }
 }
+
