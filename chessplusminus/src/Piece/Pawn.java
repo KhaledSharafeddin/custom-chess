@@ -2,9 +2,10 @@ package Piece;
 
 import GUI.ChessBoardGui;
 //Pawn.java
-import Game.Box;
+import Game.*;
 import Game.Player;
 import Game.Color;
+
 //import Game.chessBoard;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -14,7 +15,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class Pawn implements Piece {
-    public String type;
+    public Type type;
     private Box box;
     private Player player;
     private boolean isWhite;
@@ -64,9 +65,15 @@ public class Pawn implements Piece {
         this.box = destinationBox;
         firstMove = false; // pawn cannot move 2 steps after first move
     }
+<<<<<<< HEAD
 
     public Game.Type getType() {
         return Game.Type.PAWN;
+=======
+   
+    public Type getType() {
+    return Type.PAWN;
+>>>>>>> 3488c97 (lol)
     }
 
     @Override

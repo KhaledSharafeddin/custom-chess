@@ -3,7 +3,7 @@ package Piece;
 import Game.Player;
 import Game.Box;
 import Game.Color;
-import java.awt.Graphics2D;
+import Game.Type;
 
 public interface Piece {
     Player getPlayer();
@@ -11,8 +11,9 @@ public interface Piece {
     void setBox(Box destinationBox);
     boolean isValidMove(Box destinationBox);
     Color getColor();
-    Game.Type getType();
-    void paint(Graphics2D g2d);
+    Type getType();
+    
+
 
 
     // if you want to check if a piece is in an array -> implement this 
