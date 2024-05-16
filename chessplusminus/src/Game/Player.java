@@ -5,6 +5,7 @@ import java.util.*;
 import GUI.ChessBoardGui;
 import Piece.Piece;
 
+
     public class Player {
         public static Color playerColor;
         public boolean goesFirst;
@@ -26,21 +27,30 @@ import Piece.Piece;
             this.playerColor = playerColor;
             this.goesFirst = goesFirst;
         }
+
+        public Piece getKing(ChessBoardGui board) {
+            for (Piece piece : board.getPieceList()) {
+                if (piece.getType() == Type.KING && piece.getColor() == this.playerColor) {
+                    return piece;
+                }
+            }
+            return null;
+        }
         
         //i am not sure if we need both -> as it depends on the color 
-        public Vector<Piece> getAllyPieces(Color playerColor) {
+        public Vector<Piece> getAllyPieces(ChessBoardGui board, Color playerColor) {
             Vector<Piece> allies = new Vector<>();
-            for (Piece piece : ChessBoardGui.getPieceList()) {
+            for (Piece piece : board.getPieceList()) {
                 if (piece.getColor() == playerColor) {
                     allies.add(piece);
                 }
             }
             return allies;
         }
-
-        public Vector<Piece> getEnemyPieces(Color playerColor) {
+    
+        public Vector<Piece> getEnemyPieces(ChessBoardGui board, Color playerColor) {
             Vector<Piece> enemies = new Vector<>();
-            for (Piece piece : ChessBoardGui.getPieceList()) {
+            for (Piece piece : board.getPieceList()) {
                 if (piece.getColor() != playerColor) {
                     enemies.add(piece);
                 }
