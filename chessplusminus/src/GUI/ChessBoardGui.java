@@ -1,7 +1,7 @@
 package GUI;
 
 import javax.swing.*;
-
+//ChessBoardGui.java
 import Game.Move;
 import Game.Logic;
 import Piece.Piece;
@@ -13,7 +13,7 @@ import Piece.Knight;
 import Piece.Pawn;
 import GUI.Input;
 import Game.Color;
-import Game.Box
+import Game.Box;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,6 +36,8 @@ public class ChessBoardGui extends JPanel {
         addPiece();
     }
 
+    
+
    public void addPiece(){
     
         addPieces();
@@ -43,7 +45,15 @@ public class ChessBoardGui extends JPanel {
         this.addMouseListener(input);
         this.addMouseMotionListener(input);
     }
-
+    
+    public int getRow() {
+        return row;
+    }
+    
+    public int getColumn() {
+        return column;
+    }
+    
   
 
     public void addPieces() {
@@ -77,24 +87,24 @@ public class ChessBoardGui extends JPanel {
         }
     }
 
-    public void paintComponent(Graphics g){
+     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
-        //Paint the board
+        // Paint the board
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < column; c++) {
-                g2d.setColor((c + r) % 2 == 0 ? new Color(150, 53, 53, 255) : new Color(175, 81, 81));
+                g2d.setColor((c + r) % 2 == 0 ? new Color(150, 53, 53) : new Color(175, 81, 81));
                 g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
-        //Paint the pieces
-        for (Piece piece: pieceList){
-            piece.paint(g2d);
+
+        // Paint the pieces
+        for (Piece piece : pieceList) {
+            piece.paint(g2d); // Ensure each piece implements paint method
         }
 
-
-        //Paint the highlights
-        if (selectedPiece!=null) {
+        // Paint the highlights
+        if (selectedPiece != null) {
             for (int r = 0; r < row; r++) {
                 for (int c = 0; c < column; c++) {
                     if (isValidMove(new Move(this, selectedPiece, c, r))) {
@@ -104,7 +114,6 @@ public class ChessBoardGui extends JPanel {
                 }
             }
         }
-
     }
     public boolean isValidMove(Move move) {
         return Logic.isMoveValid(this, move.getPiece(), move.getNewRow(), move.getNewCol());
@@ -152,6 +161,10 @@ public class ChessBoardGui extends JPanel {
     private boolean isValidSquare(int r, int c) {
         // Implement logic to check if (row, col) is within board boundaries
         return r >= 0 && r < row && c >= 0 && c < column;
+    }
+    
+    public ArrayList<Piece> getPieceList() {
+        return pieceList;
     }
 }
 

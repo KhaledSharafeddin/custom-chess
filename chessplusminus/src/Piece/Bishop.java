@@ -6,6 +6,7 @@ import Game.Player;
 import Game.Color;
 import Game.Type;
 import GUI.ChessBoardGui;
+import java.awt.Graphics2D;
 
 public class Bishop implements Piece {
     private static Game.Type type;
@@ -35,13 +36,19 @@ public class Bishop implements Piece {
         this.box = destinationBox;
     }
 
-    public Type getType() {
-        return type;
+    @Override
+    public Game.Type getType() {
+        return Game.Type.BISHOP;
     }
 
     @Override
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        // Implement painting logic for the piece
     }
 
     @Override

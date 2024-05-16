@@ -15,6 +15,11 @@ public class Box {
     public Piece getPiece() {
         return this.piece;
     }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+    
     public int[] getBox() {
         return new int[] {xPosition,yPosition};
     }
@@ -34,5 +39,12 @@ public class Box {
     public void setYPosition(int yPosition) {
         this.yPosition = yPosition;
     }
+
+    public boolean hasClearPath(Box destinationPosition) {
+        // Implement path checking logic
+        return true; // Placeholder implementation
+    }
+
+    
     
 }

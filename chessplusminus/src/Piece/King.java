@@ -3,6 +3,7 @@ package Piece;
 import Game.Box;
 import Game.Color;
 import Game.Player;
+import java.awt.Graphics2D;
 
 public class King implements Piece {
     private static Game.Type type;
@@ -52,5 +53,10 @@ public class King implements Piece {
         int deltaY = Math.abs(destY - currentY);
 
         return deltaX <= 1 && deltaY <= 1;
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        // Implement painting logic for the King
     }
 }

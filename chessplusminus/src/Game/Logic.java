@@ -22,9 +22,16 @@ public class Logic {
     //     }
 
     // }
-    public boolean isCheck(chessBoard board,Player player) {
-
+    public boolean isCheck(ChessBoardGui board, Player player) {
+        // Implementation for check logic
+        for (Piece piece : board.getPieceList()) {
+            if (piece.getColor() != player.getColor() && piece.isValidMove(player.getKing().getBox())) {
+                return true;
+            }
+        }
+        return false;
     }
+    
 
 
     public static boolean isMoveValid(ChessBoardGui board, Piece piece, int newRow, int newCol) {
@@ -111,18 +118,30 @@ public class Logic {
     
         return true;
     }
-
-
-
-
     
-    public void moveTo(Box currentBox, Box destinationBox ){
-        //check if move is valid 
-        Piece.Piece.isValidMove(destinationBox);
-   
-        //static -> it doesnt need an instantiation ex: new Piece(); 
-       
-
+    private static boolean validateRookMove(int currentRow, int currentCol, int newRow, int newCol) {
+        // Rook moves horizontally or vertically
+        return (currentRow == newRow || currentCol == newCol);
+    }
+    
+    private static boolean validateQueenMove(int currentRow, int currentCol, int newRow, int newCol) {
+        // Queen moves horizontally, vertically, or diagonally
+        return validateRookMove(currentRow, currentCol, newRow, newCol) || validateBishopMove(currentRow, currentCol, newRow, newCol);
+    }
+    
+    private static boolean validateKingMove(Color color, int currentRow, int currentCol, int newRow, int newCol) {
+        // King moves one square in any direction
+        int rowDifference = Math.abs(newRow - currentRow);
+        int colDifference = Math.abs(newCol - currentCol);
+        return rowDifference <= 1 && colDifference <= 1;
+    }
+    
+    public void moveTo(Box currentBox, Box destinationBox) {
+        Piece piece = currentBox.getPiece();
+        if (piece != null && piece.isValidMove(destinationBox)) {
+            destinationBox.setPiece(piece);
+            currentBox.setPiece(null);
+        }
     }
     // public static boolean isPieceCaptured(Piece.Piece piece){
     //     Collections.sort(Player.capturedPieces);
