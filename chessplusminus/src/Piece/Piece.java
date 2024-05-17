@@ -12,6 +12,7 @@ public interface Piece {
     boolean isValidMove(Box destinationBox);
     Color getColor();
     Type getType();
+    void paint();
     
 
 
