@@ -1,6 +1,9 @@
 package GUI;
 
 import java.awt.event.*;
+import Game.Box;
+import Game.Move;
+import Piece.Piece;
 
 public class Input implements MouseListener, MouseMotionListener {
 
@@ -17,19 +20,53 @@ public class Input implements MouseListener, MouseMotionListener {
         clickedRow = e.getY() / ChessBoardGui.TILE_SIZE;
         clickedCol = e.getX() / ChessBoardGui.TILE_SIZE;
 
-        // ... (existing code handling piece selection and movement)
+        // Check if a piece is already selected
+        if (chessBoardGui.selectedPiece != null) {
+            // Try to move the selected piece to the clicked location
+            Box destinationBox = new Box(clickedCol, clickedRow);
+            if (chessBoardGui
+                    .isValidMove(new Move(chessBoardGui, chessBoardGui.selectedPiece, clickedCol, clickedRow))) {
+                chessBoardGui.selectedPiece.setBox(destinationBox);
+                chessBoardGui.selectedPiece = null; // Deselect the piece after moving
+            } else {
+                // Deselect the piece if the move is not valid
+                chessBoardGui.selectedPiece = null;
+            }
+        } else {
+            // Select a piece at the clicked location
+            Piece piece = chessBoardGui.getPiece(clickedRow, clickedCol);
+            if (piece != null) {
+                chessBoardGui.selectedPiece = piece;
+            }
+        }
 
-        chessBoardGui.repaint(); // Repaint the board after any changes
+        chessBoardGui.repaint();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // Optional: Handle initiating dragging a piece (if applicable)
+        clickedRow = e.getY() / ChessBoardGui.TILE_SIZE;
+        clickedCol = e.getX() / ChessBoardGui.TILE_SIZE;
+
+        // Select a piece at the clicked location
+        Piece piece = chessBoardGui.getPiece(clickedRow, clickedCol);
+        if (piece != null) {
+            chessBoardGui.selectedPiece = piece;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // Optional: Handle completing a dragging action (if applicable)
+        if (chessBoardGui.selectedPiece != null) {
+            int row = e.getY() / ChessBoardGui.TILE_SIZE;
+            int col = e.getX() / ChessBoardGui.TILE_SIZE;
+            Box destinationBox = new Box(col, row);
+            if (chessBoardGui.isValidMove(new Move(chessBoardGui, chessBoardGui.selectedPiece, col, row))) {
+                chessBoardGui.selectedPiece.setBox(destinationBox);
+                chessBoardGui.selectedPiece = null; // Deselect the piece after moving
+            }
+        }
+        chessBoardGui.repaint();
     }
 
     @Override
@@ -42,9 +79,16 @@ public class Input implements MouseListener, MouseMotionListener {
         // Optional: Visual effect when mouse exits the board
     }
 
-    @Override
     public void mouseDragged(MouseEvent e) {
-        // Optional: Implement dragging functionality (if applicable)
+        // Implement dragging functionality
+        if (chessBoardGui.selectedPiece != null) {
+            int row = e.getY() / ChessBoardGui.TILE_SIZE;
+            int col = e.getX() / ChessBoardGui.TILE_SIZE;
+            if (chessBoardGui.inChessBoard(row, col)) {
+                chessBoardGui.selectedPiece.setBox(new Box(col, row));
+                chessBoardGui.repaint();
+            }
+        }
     }
 
     // Implement the required method from MouseMotionListener
@@ -53,10 +97,12 @@ public class Input implements MouseListener, MouseMotionListener {
         int row = e.getY() / ChessBoardGui.TILE_SIZE;
         int col = e.getX() / ChessBoardGui.TILE_SIZE;
 
-        // Optional: Implement visual effects based on mouse position (e.g., highlight potential moves)
-        // You can use this method to highlight squares where the selected piece could potentially move
+        // Optional: Implement visual effects based on mouse position (e.g., highlight
+        // potential moves)
+        // You can use this method to highlight squares where the selected piece could
+        // potentially move
         // if validMoves is not null (meaning a piece is selected).
-        if (chessBoardGui.selectedPiece != null ) {
+        if (chessBoardGui.selectedPiece != null) {
             // Code to highlight valid moves visually (optional)
         }
     }
