@@ -3,6 +3,7 @@ package Piece;
 import Game.Box;
 import Game.Color;
 import Game.Player;
+import java.awt.Graphics2D;
 
 public class Rook implements Piece{
     private static Game.Type type;
@@ -32,9 +33,14 @@ public class Rook implements Piece{
         this.box = destinationBox;
     }
 
-
-    public static Game.Type getType(){
-        return type;
+    @Override
+    public Game.Type getType(){
+        return Game.Type.ROOK;
+    }
+    
+    @Override
+    public void paint(Graphics2D g2d) {
+        // Implement painting logic for the piece
     }
 
     @Override

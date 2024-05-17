@@ -5,24 +5,36 @@ import Game.Box;
 import Game.Player;
 import Game.Color;
 //import Game.chessBoard;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Pawn implements Piece {
     public String type;
     private Box box;
     private Player player;
     private boolean isWhite;
-   
+    private BufferedImage image;
     private Color color;
-    private boolean firstMove; //tracks whether pawn's first move 
+    private boolean firstMove = true; //tracks whether pawn's first move 
 
     public Pawn(Box box, Color color) {
         this.box = box;
         this.player = player;
-        //this.isWhite = isWhite;
         this.color = color;
-      
+        loadImage();
     }
 
+    
+    private void loadImage() {
+        String imageName = (color == Color.WHITE) ? "pawn_white.png" : "pawn_black.png";
+        try {
+            image = ImageIO.read(getClass().getResource("/res/" + imageName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Player getPlayer() {
@@ -48,39 +60,38 @@ public class Pawn implements Piece {
     public Color getColor() {
         return color;
     }
-
+    
+    @Override
+    public void paint(Graphics2D g2d) {
+        // Implement painting logic for the piece
+    }
 
     @Override
-   public boolean isValidMove(Box destinationPosition) {
-        int deltaRow = Math.abs(destinationPosition.getYPosition() - getBox().getYPosition());
-        int deltaCol = Math.abs(destinationPosition.getXPosition() - getBox().getYPosition());
+    public boolean isValidMove(Box destinationBox) {
+        int deltaRow = destinationBox.getYPosition() - box.getYPosition();
+        int deltaCol = Math.abs(destinationBox.getXPosition() - box.getXPosition());
 
-        // Standard one or two squares move forward (depending on first move)
+        ChessBoardGui board = ChessBoardGui.getInstance(); // Get the board instance
+
         if (color == Color.WHITE) {
-            if (deltaRow == 1 && deltaCol == 0 && getBox().getPiece() == null) {
-                return true;
-            } else if (deltaRow == 2 && deltaCol == 0 && firstMove && getBox().getPiece() == null && 
-                       getBox().getYPosition() == 6 && getBox().getPieceAt(1) == null) {
-                return true;
+            if (deltaCol == 0) {
+                if (deltaRow == -1 && board.getPiece(box.getYPosition() - 1, box.getXPosition()) == null) return true; // Move one square forward
+                if (deltaRow == -2 && firstMove && board.getPiece(box.getYPosition() - 1, box.getXPosition()) == null && board.getPiece(box.getYPosition() - 2, box.getXPosition()) == null) return true; // Move two squares forward on first move
+            } else if (deltaCol == 1 && deltaRow == -1) {
+                // Capture diagonally
+                Piece targetPiece = board.getPiece(box.getYPosition() - 1, box.getXPosition() + (destinationBox.getXPosition() - box.getXPosition()));
+                return targetPiece != null && targetPiece.getColor() != color;
             }
-        } else { // Black pawn moves down the board
-            if (deltaRow == 1 && deltaCol == 0 && getBox().getPiece() == null) {
-                return true;
-            } else if (deltaRow == 2 && deltaCol == 0 && firstMove && getBox().getYPosition() == 1 && 
-                       getBox().getPiece() == null && getBox().getPieceAt(-1) == null) {
-                return true;
+        } else {
+            if (deltaCol == 0) {
+                if (deltaRow == 1 && board.getPiece(box.getYPosition() + 1, box.getXPosition()) == null) return true; // Move one square forward
+                if (deltaRow == 2 && firstMove && board.getPiece(box.getYPosition() + 1, box.getXPosition()) == null && board.getPiece(box.getYPosition() + 2, box.getXPosition()) == null) return true; // Move two squares forward on first move
+            } else if (deltaCol == 1 && deltaRow == 1) {
+                // Capture diagonally
+                Piece targetPiece = board.getPiece(box.getYPosition() + 1, box.getXPosition() + (destinationBox.getXPosition() - box.getXPosition()));
+                return targetPiece != null && targetPiece.getColor() != color;
             }
         }
-
-        // Capturing diagonally
-        if (deltaRow == 1 && deltaCol == 1 && getBox().getPieceAt(1, 1) != null && 
-                getBox().getPieceAt(1, 1).getColor() != color) {
-            return true;
-        } else if (deltaRow == 1 && deltaCol == 1 && getBox().getPieceAt(-1, 1) != null && 
-                   getBox().getPieceAt(-1, 1).getColor() != color) {
-            return true;
-        }
-
         return false;
     }
 

@@ -3,6 +3,7 @@ package Piece;
 import Game.Box;
 import Game.Player;
 import Game.Color;
+import java.awt.Graphics2D;
 
 public class Queen implements Piece {
     private Game.Type type;
@@ -38,6 +39,11 @@ public class Queen implements Piece {
     @Override
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        // Implement painting logic for the piece
     }
 
     @Override

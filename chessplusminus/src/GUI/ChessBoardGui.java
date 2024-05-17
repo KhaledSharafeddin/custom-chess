@@ -27,15 +27,20 @@ public class ChessBoardGui extends JPanel {
     int row = 8;
     int column = 8;
     private Piece[][] board; 
+    private static ChessBoardGui instance;
     public Piece selectedPiece;
     Input input = new Input(this);
     public ChessBoardGui(){
-
+        instance = this;
         this.setPreferredSize(new Dimension(column *TILE_SIZE, row *TILE_SIZE));
         this.setBackground(java.awt.Color.green);
         addPiece();
     }
 
+    
+    public static ChessBoardGui getInstance() {
+        return instance;
+    }
     
 
    public void addPiece(){

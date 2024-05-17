@@ -1,4 +1,5 @@
 package Game;
+import GUI.ChessBoardGui;
 //Box.java
 import Piece.Piece;
 
@@ -19,7 +20,7 @@ public class Box {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
-    
+
     public int[] getBox() {
         return new int[] {xPosition,yPosition};
     }
@@ -45,6 +46,13 @@ public class Box {
         return true; // Placeholder implementation
     }
 
-    
+    public Piece getPieceAt(int deltaX, int deltaY, ChessBoardGui board) {
+        int targetX = this.xPosition + deltaX;
+        int targetY = this.yPosition + deltaY;
+        if (board.inChessBoard(targetY, targetX)) {
+            return board.getPiece(targetY, targetX);
+        }
+        return null;
+    }
     
 }

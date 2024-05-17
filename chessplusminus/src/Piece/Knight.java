@@ -6,6 +6,7 @@ import Game.Box;
 import Game.Color;
 import Game.Player;
 import GUI.ChessBoardGui;
+import java.awt.Graphics2D;
 
 public class Knight implements Piece {
     private static Game.Type type;
@@ -54,6 +55,11 @@ public class Knight implements Piece {
     @Override
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        // Implement painting logic for the piece
     }
 
     @Override
