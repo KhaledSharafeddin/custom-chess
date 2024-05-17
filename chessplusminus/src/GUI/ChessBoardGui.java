@@ -11,55 +11,49 @@ import Piece.Bishop;
 import Piece.King;
 import Piece.Knight;
 import Piece.Pawn;
-import GUI.Input;
 import Game.Color;
 import Game.Box;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import Piece.*;
-
 public class ChessBoardGui extends JPanel {
 
-    public static final int TILE_SIZE = 85; 
+    public static final int TILE_SIZE = 85;
     ArrayList<Piece> pieceList = new ArrayList<>();
     int row = 8;
     int column = 8;
-    private Piece[][] board; 
+    private Piece[][] board;
     private static ChessBoardGui instance;
     public Piece selectedPiece;
     Input input = new Input(this);
-    public ChessBoardGui(){
+
+    public ChessBoardGui() {
         instance = this;
-        this.setPreferredSize(new Dimension(column *TILE_SIZE, row *TILE_SIZE));
+        this.setPreferredSize(new Dimension(column * TILE_SIZE, row * TILE_SIZE));
         this.setBackground(java.awt.Color.green);
-        addPiece();
+        addPieces();
     }
 
-    
     public static ChessBoardGui getInstance() {
         return instance;
     }
-    
 
-   public void addPiece(){
-    
+    public void addPiece() {
+
         addPieces();
 
         this.addMouseListener(input);
         this.addMouseMotionListener(input);
     }
-    
+
     public int getRow() {
         return row;
     }
-    
+
     public int getColumn() {
         return column;
     }
-    
-  
 
     public void addPieces() {
 
@@ -72,11 +66,11 @@ public class ChessBoardGui extends JPanel {
         pieceList.add(new Bishop(new Box(5, 0), Color.BLACK));
         pieceList.add(new Knight(new Box(6, 0), Color.BLACK));
         pieceList.add(new Rook(new Box(7, 0), Color.BLACK));
-    
+
         for (int col = 0; col < 8; col++) {
             pieceList.add(new Pawn(new Box(col, 1), Color.BLACK)); // Black pawns on rank 1
         }
-    
+
         // White pieces
         pieceList.add(new Rook(new Box(0, 7), Color.WHITE));
         pieceList.add(new Knight(new Box(1, 7), Color.WHITE));
@@ -86,13 +80,13 @@ public class ChessBoardGui extends JPanel {
         pieceList.add(new Bishop(new Box(5, 7), Color.WHITE));
         pieceList.add(new Knight(new Box(6, 7), Color.WHITE));
         pieceList.add(new Rook(new Box(7, 7), Color.WHITE));
-    
+
         for (int col = 0; col < 8; col++) {
             pieceList.add(new Pawn(new Box(col, 6), Color.WHITE)); // White pawns on rank 6
         }
     }
 
-     public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
         // Paint the board
@@ -120,6 +114,7 @@ public class ChessBoardGui extends JPanel {
             }
         }
     }
+
     public boolean isValidMove(Move move) {
         return Logic.isMoveValid(this, move.getPiece(), move.getNewRow(), move.getNewCol());
     }
@@ -127,6 +122,7 @@ public class ChessBoardGui extends JPanel {
     public boolean inChessBoard(int row, int col) {
         return (row >= 0 && row < this.row) && (col >= 0 && col < this.column);
     }
+
     public ArrayList<Move> getValidMoves(Piece selectedPiece) {
         ArrayList<Move> validMoves = new ArrayList<>();
         for (int row = 0; row < this.row; row++) {
@@ -138,6 +134,7 @@ public class ChessBoardGui extends JPanel {
         }
         return validMoves;
     }
+
     public Piece getPiece(int row, int col) {
         for (Piece piece : pieceList) {
             if ((piece.getBox()).getYPosition() == row && (piece.getBox()).getXPosition() == col) {
@@ -146,6 +143,7 @@ public class ChessBoardGui extends JPanel {
         }
         return null; // No piece found at that position
     }
+
     public Piece getBox(int row, int col) {
         if (isValidSquare(row, col)) { // Check for valid square coordinates
             return board[row][col];
@@ -163,13 +161,13 @@ public class ChessBoardGui extends JPanel {
             System.out.println("No square selected for replacePiece");
         }
     }
+
     private boolean isValidSquare(int r, int c) {
         // Implement logic to check if (row, col) is within board boundaries
         return r >= 0 && r < row && c >= 0 && c < column;
     }
-    
+
     public ArrayList<Piece> getPieceList() {
         return pieceList;
     }
 }
-
