@@ -57,4 +57,3 @@ public class GUI {
         return panel;
     }
 }
-

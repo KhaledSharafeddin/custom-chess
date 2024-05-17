@@ -4,6 +4,7 @@ import Game.Player;
 import Game.Box;
 import Game.Color;
 import Game.Type;
+import java.awt.Graphics2D;
 
 public interface Piece {
     Player getPlayer();
@@ -12,7 +13,7 @@ public interface Piece {
     boolean isValidMove(Box destinationBox);
     Color getColor();
     Type getType();
-    void paint();
+    void paint(Graphics2D g2d);
     
 
 

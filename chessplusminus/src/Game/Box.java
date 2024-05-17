@@ -41,7 +41,6 @@ public class Box {
         this.yPosition = yPosition;
     }
 
-<<<<<<< HEAD
     public boolean hasClearPath(Box destinationPosition) {
         // Implement path checking logic
         return true; // Placeholder implementation
@@ -54,19 +53,6 @@ public class Box {
             return board.getPiece(targetY, targetX);
         }
         return null;
-=======
-
-    public Piece getPieceAt(int rowOffset, int colOffset) {
-        int newRow = yPosition + rowOffset;
-        int newCol = xPosition + colOffset;
-
-        // Check if the new position is within board boundaries
-        if (isValidPosition(newRow, newCol)) {
-            return board.getPiece(newRow, newCol);
-        } else {
-            return null;
-        }
->>>>>>> 3488c97 (lol)
     }
     
 }

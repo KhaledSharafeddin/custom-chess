@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class ChessBoardGui extends JPanel {
 
-    public static final int TILE_SIZE = 85; 
+    public static final int TILE_SIZE = 85;
     ArrayList<Piece> pieceList = new ArrayList<>();
     int row = 8;
     int column = 8;
