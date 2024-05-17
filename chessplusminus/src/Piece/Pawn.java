@@ -2,10 +2,9 @@ package Piece;
 
 import GUI.ChessBoardGui;
 //Pawn.java
-import Game.*;
+import Game.Box;
 import Game.Player;
 import Game.Color;
-
 //import Game.chessBoard;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -15,7 +14,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class Pawn implements Piece {
-    public Type type;
+    public String type;
     private Box box;
     private Player player;
     private boolean isWhite;
@@ -36,7 +35,7 @@ public class Pawn implements Piece {
             System.out.println("Attempting to load image: /pieces/" + imageName); // Debug output
 
             // Debug: check if the resource exists and print the full path
-            URL resourceUrl = getClass().getResource("/pieces/" + imageName);
+            URL resourceUrl = getClass().getResource("pieces/"+imageName);
             if (resourceUrl == null) {
                 System.out.println("Image not found at path: /pieces/" + imageName);
             } else {
@@ -65,15 +64,9 @@ public class Pawn implements Piece {
         this.box = destinationBox;
         firstMove = false; // pawn cannot move 2 steps after first move
     }
-<<<<<<< HEAD
 
     public Game.Type getType() {
         return Game.Type.PAWN;
-=======
-   
-    public Type getType() {
-    return Type.PAWN;
->>>>>>> 3488c97 (lol)
     }
 
     @Override
