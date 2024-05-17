@@ -1,39 +1,48 @@
 package Piece;
-//Knight.java
-import java.awt.image.BufferedImage;
 
+//Knight.java
 import Game.Box;
-import Game.Color;
 import Game.Player;
+import Game.Color;
+import Game.Type;
 import GUI.ChessBoardGui;
+
+import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
 public class Knight implements Piece {
-    private static Game.Type type;
-    private static Box box;
+    private Box box;
     private Player player;
     private Color color;
-  
+    private BufferedImage image;
 
-    public Knight( Box box, Color color){
-       // this.player = player;
+    public Knight(Box box, Color color) {
         this.box = box;
         this.color = color;
-    } 
+        loadImage();
+    }
 
-    /*
-     * public Knight(ChessBoardGui board, int col, int row, boolean isWhite) {
-     * super(board)
-     * this.col = col;
-     * this.row = row;
-     * this.xPos = col * board.squareSize;
-     * this.yPos = row * board.squareSize;
-     * this.isWhite = isWhite;
-     * this.name = "Knight"
-     * this.sprite = sheet.getSubImage(3*sheetScale, isWHite ? 0 : sheetScale, sheetScale, sheetScale).getSelectedInstance(board.squareSize, board.squareSize, BufferedImage.SCALE_SMOOTH);
-     * }
-     */
-    
+    private void loadImage() {
+        String imageName = (color == Color.WHITE) ? "knight_white.png" : "knight_black.png";
+        try {
+            System.out.println("Attempting to load image: pieces/" + imageName); // Debug output
+            URL resourceUrl = getClass().getResource("pieces/" + imageName);
+            if (resourceUrl == null) {
+                System.out.println("Image not found at path: pieces/" + imageName);
+            } else {
+                System.out.println("Found image at path: " + resourceUrl);
+                image = ImageIO.read(resourceUrl);
+                System.out.println("Successfully loaded image: " + imageName);
+            }
+        } catch (IOException e) {
+            System.out.println("Exception while loading image: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public Player getPlayer() {
         return player;
@@ -50,8 +59,9 @@ public class Knight implements Piece {
     }
 
     public Game.Type getType() {
-        return type;
+        return Type.KNIGHT;
     }
+
     @Override
     public Color getColor() {
         return color;
@@ -59,7 +69,11 @@ public class Knight implements Piece {
 
     @Override
     public void paint(Graphics2D g2d) {
-        // Implement painting logic for the piece
+        if (image != null) {
+            int x = box.getXPosition() * ChessBoardGui.TILE_SIZE;
+            int y = box.getYPosition() * ChessBoardGui.TILE_SIZE;
+            g2d.drawImage(image, x, y, ChessBoardGui.TILE_SIZE, ChessBoardGui.TILE_SIZE, null);
+        }
     }
 
     @Override
