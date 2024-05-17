@@ -45,6 +45,7 @@ public class Input implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println("Mouse pressed");
         clickedRow = e.getY() / ChessBoardGui.TILE_SIZE;
         clickedCol = e.getX() / ChessBoardGui.TILE_SIZE;
 

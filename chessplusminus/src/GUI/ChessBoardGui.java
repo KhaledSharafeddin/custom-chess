@@ -33,6 +33,9 @@ public class ChessBoardGui extends JPanel {
         this.setPreferredSize(new Dimension(column * TILE_SIZE, row * TILE_SIZE));
         this.setBackground(java.awt.Color.green);
         addPieces();
+
+        this.addMouseListener(new Input(this));
+        this.addMouseMotionListener(new Input(this));
     }
 
     public static ChessBoardGui getInstance() {
