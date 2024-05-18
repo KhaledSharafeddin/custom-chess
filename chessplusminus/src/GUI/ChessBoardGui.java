@@ -95,7 +95,7 @@ public class ChessBoardGui extends JPanel {
         // Paint the board
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < column; c++) {
-                g2d.setColor((c + r) % 2 == 0 ? new java.awt.Color(192, 192, 192) : new java.awt.Color(0, 217, 181));
+                g2d.setColor((c + r) % 2 == 0 ? new java.awt.Color(150, 53, 53) : new java.awt.Color(175, 81, 81));
                 g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
