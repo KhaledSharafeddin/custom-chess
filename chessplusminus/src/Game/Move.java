@@ -9,6 +9,7 @@ public class Move {
     private Piece piece;
     private int newRow;
     private int newCol;
+    private Box Box;
 
     public Move(GUI.ChessBoardGui board, Piece piece, int newRow, int newCol) {
         this.board = board;
@@ -16,7 +17,7 @@ public class Move {
         this.newRow = newRow;
         this.newCol = newCol;
     }
-     
+
     public ChessBoardGui getBoard() {
         return board;
     }
@@ -33,5 +34,8 @@ public class Move {
         return newCol;
     }
 
+    public Box getNewBox() {
+        return new Box(newRow, newCol);
+    }
     // Getter methods for board, piece, newRow, and newCol
 }

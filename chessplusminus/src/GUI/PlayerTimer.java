@@ -1,4 +1,5 @@
 package GUI;
+
 //PlayerTimer.java
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -10,11 +11,11 @@ public class PlayerTimer extends JPanel {
     private int timeInSeconds;
     private Timer timer;
     private JLabel label;
-    //private Player player;
+    // private Player player;
     private boolean endTurn;
 
-    public PlayerTimer(int initialTimeInSeconds) { //Player player to be added
-        //this.player = player;
+    public PlayerTimer(int initialTimeInSeconds) { // Player player to be added
+        // this.player = player;
         this.timeInSeconds = initialTimeInSeconds;
         this.label = new JLabel();
         this.add(label);
@@ -56,6 +57,6 @@ public class PlayerTimer extends JPanel {
         return endTurn;
     }
 
-    //public Player getPlayer() {
-        //return player;
-    }
+    // public Player getPlayer() {
+    // return player;
+}

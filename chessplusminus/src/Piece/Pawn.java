@@ -35,7 +35,7 @@ public class Pawn implements Piece {
             System.out.println("Attempting to load image: /pieces/" + imageName); // Debug output
 
             // Debug: check if the resource exists and print the full path
-            URL resourceUrl = getClass().getResource("pieces/"+imageName);
+            URL resourceUrl = getClass().getResource("pieces/" + imageName);
             if (resourceUrl == null) {
                 System.out.println("Image not found at path: /pieces/" + imageName);
             } else {

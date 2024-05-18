@@ -95,7 +95,7 @@ public class ChessBoardGui extends JPanel {
         // Paint the board
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < column; c++) {
-                g2d.setColor((c + r) % 2 == 0 ? new java.awt.Color(150, 53, 53) : new java.awt.Color(175, 81, 81));
+                g2d.setColor((c + r) % 2 == 0 ? new java.awt.Color(192, 192, 192) : new java.awt.Color(0, 217, 181));
                 g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
@@ -107,13 +107,11 @@ public class ChessBoardGui extends JPanel {
 
         // Paint the highlights
         if (selectedPiece != null) {
-            for (int r = 0; r < row; r++) {
-                for (int c = 0; c < column; c++) {
-                    if (isValidMove(new Move(this, selectedPiece, c, r))) {
-                        g2d.setColor(new java.awt.Color(2, 255, 0, 107));
-                        g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                    }
-                }
+            for (Move move : getValidMoves(selectedPiece)) {
+                int r = move.getNewRow();
+                int c = move.getNewCol();
+                g2d.setColor(new java.awt.Color(2, 255, 0, 107));
+                g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
     }
@@ -130,8 +128,9 @@ public class ChessBoardGui extends JPanel {
         ArrayList<Move> validMoves = new ArrayList<>();
         for (int row = 0; row < this.row; row++) {
             for (int col = 0; col < this.column; col++) {
-                if (isValidMove(new Move(this, selectedPiece, row, col))) {
-                    validMoves.add(new Move(this, selectedPiece, row, col));
+                Move potentialMove = new Move(this, selectedPiece, row, col);
+                if (isValidMove(potentialMove)) {
+                    validMoves.add(potentialMove);
                 }
             }
         }

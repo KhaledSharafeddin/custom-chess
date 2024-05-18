@@ -1,4 +1,5 @@
 package Game;
+
 //Logic.java
 import java.security.cert.CollectionCertStoreParameters;
 import java.util.Arrays;
@@ -8,18 +9,18 @@ import GUI.ChessBoardGui;
 import Piece.Piece;
 
 public class Logic {
-    
-    public Logic(){
+
+    public Logic() {
 
     }
 
     // private static boolean inChessBoard(){
-    //     if(//something here ){
+    // if(//something here ){
 
-    //         return true;
-    //     }else{
-    //         return false;
-    //     }
+    // return true;
+    // }else{
+    // return false;
+    // }
 
     // }
     public boolean isCheck(ChessBoardGui board, Player player) {
@@ -31,8 +32,6 @@ public class Logic {
         }
         return false;
     }
-    
-
 
     public static boolean isMoveValid(ChessBoardGui board, Piece piece, int newRow, int newCol) {
         // Check if the new position is within the board boundaries
@@ -43,14 +42,17 @@ public class Logic {
         // Check if the destination square is empty or occupied by an enemy piece
         Piece targetPiece = board.getPiece(newRow, newCol);
         if (targetPiece == null || targetPiece.getColor() != piece.getColor()) {
-            // Check if the move is valid for the specific piece type (implement logic for each piece type here)
-            return validatePieceMove(board, piece, piece.getBox().getYPosition(), piece.getBox().getXPosition(), newRow, newCol);
+            // Check if the move is valid for the specific piece type (implement logic for
+            // each piece type here)
+            return validatePieceMove(board, piece, piece.getBox().getYPosition(), piece.getBox().getXPosition(), newRow,
+                    newCol);
         }
 
         return false;
     }
 
-    private static boolean validatePieceMove(ChessBoardGui board, Piece piece, int currentRow, int currentCol, int newRow, int newCol) {
+    private static boolean validatePieceMove(ChessBoardGui board, Piece piece, int currentRow, int currentCol,
+            int newRow, int newCol) {
         switch (piece.getType()) {
             case PAWN:
                 return validatePawnMove(piece.getColor(), currentRow, currentCol, newRow, newCol);
@@ -69,26 +71,49 @@ public class Logic {
     }
 
     private static boolean validatePawnMove(Color color, int currentRow, int currentCol, int newRow, int newCol) {
-        int distance = Math.abs(newRow - currentRow);
-        int colDiff = Math.abs(newCol - currentCol);
+        int rowDifference = newRow - currentRow;
+        int colDifference = Math.abs(newCol - currentCol);
 
-        // Basic pawn movement (one or two squares forward depending on starting position)
         if (color == Color.WHITE) {
-            return (newRow - currentRow == distance) && (distance == 1 || (distance == 2 && currentRow == 1)) && colDiff == 0;
-        } else { // Color.BLACK
-            return (currentRow - newRow == distance) && (distance == 1 || (distance == 2 && currentRow == 6)) && colDiff == 0;
+            // White pawns move up the board (decreasing row index)
+            if (rowDifference == -1 && colDifference == 0) {
+                // Move forward by one square
+                return true;
+            } else if (rowDifference == -2 && colDifference == 0 && currentRow == 6) {
+                // Move forward by two squares from the initial position
+                return true;
+            } else if (rowDifference == -1 && colDifference == 1) {
+                // Capture diagonally
+                return true;
+            }
+        } else if (color == Color.BLACK) {
+            // Black pawns move down the board (increasing row index)
+            if (rowDifference == 1 && colDifference == 0) {
+                // Move forward by one square
+                return true;
+            } else if (rowDifference == 2 && colDifference == 0 && currentRow == 1) {
+                // Move forward by two squares from the initial position
+                return true;
+            } else if (rowDifference == 1 && colDifference == 1) {
+                // Capture diagonally
+                return true;
+            }
         }
+
+        return false;
     }
 
     private static boolean validateKnightMove(int currentRow, int currentCol, int newRow, int newCol) {
         int distanceRow = Math.abs(newRow - currentRow);
         int distanceCol = Math.abs(newCol - currentCol);
 
-        // L-shaped movement (two squares in one direction and one square perpendicularly)
+        // L-shaped movement (two squares in one direction and one square
+        // perpendicularly)
         return (distanceRow == 1 && distanceCol == 2) || (distanceRow == 2 && distanceCol == 1);
     }
 
-    private static boolean validateBishopMove(ChessBoardGui board, int currentRow, int currentCol, int newRow, int newCol) {
+    private static boolean validateBishopMove(ChessBoardGui board, int currentRow, int currentCol, int newRow,
+            int newCol) {
         int distanceRow = Math.abs(newRow - currentRow);
         int distanceCol = Math.abs(newCol - currentCol);
 
@@ -104,7 +129,8 @@ public class Logic {
             int checkRow = currentRow + i * directionRow;
             int checkCol = currentCol + i * directionCol;
 
-            if (board.getPieceList().stream().anyMatch(piece -> piece.getBox().getYPosition() == checkRow && piece.getBox().getXPosition() == checkCol)) {
+            if (board.getPieceList().stream().anyMatch(
+                    piece -> piece.getBox().getYPosition() == checkRow && piece.getBox().getXPosition() == checkCol)) {
                 return false; // A piece is blocking the path
             }
         }
@@ -117,9 +143,11 @@ public class Logic {
         return (currentRow == newRow || currentCol == newCol);
     }
 
-    private static boolean validateQueenMove(ChessBoardGui board, int currentRow, int currentCol, int newRow, int newCol) {
+    private static boolean validateQueenMove(ChessBoardGui board, int currentRow, int currentCol, int newRow,
+            int newCol) {
         // Queen moves horizontally, vertically, or diagonally
-        return validateRookMove(currentRow, currentCol, newRow, newCol) || validateBishopMove(board, currentRow, currentCol, newRow, newCol);
+        return validateRookMove(currentRow, currentCol, newRow, newCol)
+                || validateBishopMove(board, currentRow, currentCol, newRow, newCol);
     }
 
     private static boolean validateKingMove(Color color, int currentRow, int currentCol, int newRow, int newCol) {
@@ -137,12 +165,10 @@ public class Logic {
         }
     }
     // public static boolean isPieceCaptured(Piece.Piece piece){
-    //     Collections.sort(Player.capturedPieces);
-    //     if(Collections.binarySearch(Player.capturedPieces, piece) != null){
-    //         return true;
-    //     }
+    // Collections.sort(Player.capturedPieces);
+    // if(Collections.binarySearch(Player.capturedPieces, piece) != null){
+    // return true;
+    // }
     // }
 
-    
-}  
-     
+}
