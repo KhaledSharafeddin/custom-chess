@@ -26,8 +26,9 @@ public class ChessBoardGui extends JPanel {
     private Piece[][] board;
     private static ChessBoardGui instance;
     public Piece selectedPiece;
+    public Move move;
     Input input = new Input(this);
-    public boolean isWhiteTurn;
+    public static boolean isWhiteTurn;
 
     public ChessBoardGui() {
         isWhiteTurn = true;
@@ -101,14 +102,12 @@ public class ChessBoardGui extends JPanel {
                 g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
-
         // Paint the pieces
         for (Piece piece : pieceList) {
             piece.paint(g2d); // Ensure each piece implements paint method
         }
-
         // Paint the highlights
-        if (selectedPiece != null) {
+        if (selectedPiece != null && isCurrentPlayerTurn(selectedPiece))  {
             for (Move move : getValidMoves(selectedPiece)) {
                 int r = move.getNewRow();
                 int c = move.getNewCol();
@@ -117,6 +116,14 @@ public class ChessBoardGui extends JPanel {
             }
         }
     }
+    public static boolean isCurrentPlayerTurn(Piece piece) {
+        if (piece == null) {
+            return false; // Not the current player's turn if no piece is clicked
+        }
+        return  isWhiteTurn && piece.getColor() == Color.WHITE  ||
+               !isWhiteTurn && piece.getColor() == Color.BLACK;
+          
+    }  
 
     public boolean isValidMove(Move move) {
         return Logic.isMoveValid(this, move.getPiece(), move.getNewRow(), move.getNewCol());

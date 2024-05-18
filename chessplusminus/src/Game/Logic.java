@@ -13,16 +13,6 @@ public class Logic {
     public Logic() {
 
     }
-
-    // private static boolean inChessBoard(){
-    // if(//something here ){
-
-    // return true;
-    // }else{
-    // return false;
-    // }
-
-    // }
     public boolean isCheck(ChessBoardGui board, Player player) {
         // Implementation for check logic
         for (Piece piece : board.getPieceList()) {
