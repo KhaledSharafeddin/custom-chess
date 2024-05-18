@@ -27,8 +27,10 @@ public class ChessBoardGui extends JPanel {
     private static ChessBoardGui instance;
     public Piece selectedPiece;
     Input input = new Input(this);
+    public boolean isWhiteTurn;
 
     public ChessBoardGui() {
+        isWhiteTurn = true;
         instance = this;
         this.setPreferredSize(new Dimension(column * TILE_SIZE, row * TILE_SIZE));
         this.setBackground(java.awt.Color.green);
