@@ -63,7 +63,7 @@ public class Input implements MouseListener, MouseMotionListener {
                 Box destinationBox = new Box(clickedCol, clickedRow);
                 chessBoardGui.selectedPiece.setBox(destinationBox);
                 chessBoardGui.selectedPiece = null;
-                chessBoardGui.changeTurn();
+                chessBoardGui.setEndTurn();
             }    
         }
         

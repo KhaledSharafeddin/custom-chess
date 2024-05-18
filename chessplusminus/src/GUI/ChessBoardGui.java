@@ -29,6 +29,7 @@ public class ChessBoardGui extends JPanel {
     public Move move;
     Input input = new Input(this);
     public static boolean isWhiteTurn;
+   
 
     public ChessBoardGui() {
         isWhiteTurn = true;
@@ -182,13 +183,24 @@ public class ChessBoardGui extends JPanel {
         return pieceList;
     }
 
-    public  void changeTurn(){
-        if(isWhiteTurn){
-            isWhiteTurn =false;
-        }
-        else{
-            isWhiteTurn = true;
-        }
+
+      public void setEndTurn() {
+        //this.endTurn = endTurn;
         
-      }
+            // Stop the timer for the current player
+            if (isWhiteTurn) {
+                GUI.player1Timer.setEndTurn(true);
+            } else {
+                GUI.player2Timer.setEndTurn(true);
+            }
+            
+            // Switch turns and start the timer for the next player
+            isWhiteTurn = !isWhiteTurn;
+            if (isWhiteTurn) {
+                GUI.player1Timer.setEndTurn(false); // Start white player's timer
+            } else {
+                GUI.player2Timer.setEndTurn(false); // Start black player's timer
+            }
+        
+    }
 }

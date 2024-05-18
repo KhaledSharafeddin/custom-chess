@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUI {
+    static PlayerTimer player1Timer;
+    static PlayerTimer player2Timer;
     public static void main(String[] args) {
         // Create the main frame
         JFrame frame = new JFrame("C+-: Custom Chess");
@@ -15,8 +17,8 @@ public class GUI {
         chessPanel.add(board);
 
         // Create player timers
-        PlayerTimer player1Timer = new PlayerTimer(5 * 60); // 5 minutes for player 1
-        PlayerTimer player2Timer = new PlayerTimer(5 * 60); // 5 minutes for player 2
+        player1Timer = new PlayerTimer(5 * 60); // 5 minutes for player 1
+        player2Timer = new PlayerTimer(5 * 60); // 5 minutes for player 2
 
         // Create panels for player timers with labels
         JPanel player1Panel = createPlayerPanel("Player 1's Timer", player1Timer);
