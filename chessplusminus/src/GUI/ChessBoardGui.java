@@ -181,4 +181,14 @@ public class ChessBoardGui extends JPanel {
     public ArrayList<Piece> getPieceList() {
         return pieceList;
     }
+
+    public  void changeTurn(){
+        if(isWhiteTurn){
+            isWhiteTurn =false;
+        }
+        else{
+            isWhiteTurn = true;
+        }
+        
+      }
 }
