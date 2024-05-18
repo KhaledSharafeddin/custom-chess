@@ -10,7 +10,7 @@ import Game.Player;
 
 public class PlayerTimer extends JPanel {
     private int timeInSeconds;
-    private Timer timer;
+    protected Timer timer;
     private JLabel label;
     // private Player player;
     private boolean endTurn;

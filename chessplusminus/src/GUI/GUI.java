@@ -24,6 +24,9 @@ public class GUI {
         JPanel player1Panel = createPlayerPanel("Player 1's Timer", player1Timer);
         JPanel player2Panel = createPlayerPanel("Player 2's Timer", player2Timer);
 
+        //player1Timer.timer.start(); 
+        player2Timer.timer.stop();
+
         // Create move count labels
         JLabel player1MoveCountLabel = new JLabel("Move Count: ", SwingConstants.CENTER);
         JLabel player2MoveCountLabel = new JLabel("Move Count: ", SwingConstants.CENTER);
