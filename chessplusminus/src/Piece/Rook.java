@@ -75,13 +75,37 @@ public class Rook implements Piece {
 
     @Override
     public boolean isValidMove(Box destinationBox) {
-        int destX = destinationBox.getXPosition();
-        int destY = destinationBox.getYPosition();
+        int deltaRow = Math.abs(destinationBox.getYPosition() - box.getYPosition());
+        int deltaCol = Math.abs(destinationBox.getXPosition() - box.getXPosition());
 
-        int currentX = box.getXPosition();
-        int currentY = box.getYPosition();
+        // Bishops move diagonally
+        if (deltaRow == deltaCol) {
+            if (hasClearPath(destinationBox)) {
+                Piece destinationPiece = ChessBoardGui.getInstance().getPiece(destinationBox.getYPosition(),
+                        destinationBox.getXPosition());
+                return destinationPiece == null || destinationPiece.getColor() != this.color;
+            }
+        }
+        return false;
+    }
 
-        return destX == currentX || destY == currentY;
+    private boolean hasClearPath(Box destinationBox) {
+        int startX = box.getXPosition();
+        int startY = box.getYPosition();
+        int endX = destinationBox.getXPosition();
+        int endY = destinationBox.getYPosition();
+
+        int deltaX = (endX > startX) ? 1 : -1;
+        int deltaY = (endY > startY) ? 1 : -1;
+
+        for (int step = 1; step < Math.abs(endX - startX); step++) {
+            int checkX = startX + step * deltaX;
+            int checkY = startY + step * deltaY;
+            if (ChessBoardGui.getInstance().getPiece(checkY, checkX) != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

@@ -61,7 +61,7 @@ public class Logic {
             case BISHOP:
                 return validateBishopMove(board, currentRow, currentCol, newRow, newCol);
             case ROOK:
-                return validateRookMove(currentRow, currentCol, newRow, newCol);
+                return validateRookMove(board, currentRow, currentCol, newRow, newCol);
             case QUEEN:
                 return validateQueenMove(board, currentRow, currentCol, newRow, newCol);
             case KING:
@@ -138,15 +138,39 @@ public class Logic {
         return true;
     }
 
-    private static boolean validateRookMove(int currentRow, int currentCol, int newRow, int newCol) {
+    private static boolean validateRookMove(ChessBoardGui board, int currentRow, int currentCol, int newRow,
+            int newCol) {
         // Rook moves horizontally or vertically
-        return (currentRow == newRow || currentCol == newCol);
+        if (currentRow == newRow) {
+            // Horizontal move, check squares between columns
+            int startCol = Math.min(currentCol, newCol);
+            int endCol = Math.max(currentCol, newCol);
+            for (int col = startCol + 1; col < endCol; col++) {
+                if (board.getPiece(currentRow, col) != null) {
+                    return false; // A piece is blocking the path
+                }
+            }
+        } else if (currentCol == newCol) {
+            // Vertical move, check squares between rows
+            int startRow = Math.min(currentRow, newRow);
+            int endRow = Math.max(currentRow, newRow);
+            for (int row = startRow + 1; row < endRow; row++) {
+                if (board.getPiece(row, currentCol) != null) {
+                    return false; // A piece is blocking the path
+                }
+            }
+        } else {
+            // Not a valid rook move (diagonal)
+            return false;
+        }
+
+        return true;
     }
 
     private static boolean validateQueenMove(ChessBoardGui board, int currentRow, int currentCol, int newRow,
             int newCol) {
         // Queen moves horizontally, vertically, or diagonally
-        return validateRookMove(currentRow, currentCol, newRow, newCol)
+        return validateRookMove(board, currentRow, currentCol, newRow, newCol)
                 || validateBishopMove(board, currentRow, currentCol, newRow, newCol);
     }
 
