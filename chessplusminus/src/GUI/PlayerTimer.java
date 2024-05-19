@@ -5,11 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
-import javax.swing.Timer;
+
+import Game.Player;
 
 public class PlayerTimer extends JPanel {
     private int timeInSeconds;
-    private Timer timer;
+    protected Timer timer;
     private JLabel label;
     // private Player player;
     private boolean endTurn;
@@ -43,10 +44,9 @@ public class PlayerTimer extends JPanel {
             endTurn = true;
         }
     }
-
-    public void setEndTurn(boolean endTurn) {
+   public void setEndTurn(boolean endTurn) {
         this.endTurn = endTurn;
-        if (endTurn) {
+        if (endTurn == true) {
             timer.stop(); // Stop the timer if it's the end of the turn
         } else {
             timer.start(); // Start the timer if it's not the end of the turn

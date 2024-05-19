@@ -13,16 +13,6 @@ public class Logic {
     public Logic() {
 
     }
-
-    // private static boolean inChessBoard(){
-    // if(//something here ){
-
-    // return true;
-    // }else{
-    // return false;
-    // }
-
-    // }
     public boolean isCheck(ChessBoardGui board, Player player) {
         // Implementation for check logic
         for (Piece piece : board.getPieceList()) {
@@ -44,6 +34,7 @@ public class Logic {
         if (targetPiece == null || targetPiece.getColor() != piece.getColor()) {
             // Check if the move is valid for the specific piece type (implement logic for
             // each piece type here)
+            System.out.println("I am here");
             return validatePieceMove(board, piece, piece.getBox().getYPosition(), piece.getBox().getXPosition(), newRow,
                     newCol);
         }
