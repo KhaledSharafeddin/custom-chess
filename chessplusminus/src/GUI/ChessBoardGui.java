@@ -50,8 +50,8 @@ public class ChessBoardGui extends JPanel {
 
         addPieces();
 
-        this.addMouseListener(input);
-        this.addMouseMotionListener(input);
+        // this.addMouseListener(input);
+        // this.addMouseMotionListener(input);
     }
 
     public int getRow() {
@@ -61,6 +61,16 @@ public class ChessBoardGui extends JPanel {
     public int getColumn() {
         return column;
     }
+
+    public Piece getPiece(int row, int col) {
+        for (Piece piece : pieceList) {
+            if ((piece.getBox()).getYPosition() == row && (piece.getBox()).getXPosition() == col) {
+                return piece;
+            }
+        }
+        return null; // No piece found at that position
+    }
+
 
     public void addPieces() {
 
@@ -110,6 +120,7 @@ public class ChessBoardGui extends JPanel {
         // Paint the highlights
         if (selectedPiece != null && isCurrentPlayerTurn(selectedPiece))  {
             for (Move move : getValidMoves(selectedPiece)) {
+                System.out.println("Yahoo");
                 int r = move.getNewRow();
                 int c = move.getNewCol();
                 g2d.setColor(new java.awt.Color(2, 255, 0, 107));
@@ -117,6 +128,7 @@ public class ChessBoardGui extends JPanel {
             }
         }
     }
+    
     public static boolean isCurrentPlayerTurn(Piece piece) {
         if (piece == null) {
             return false; // Not the current player's turn if no piece is clicked
@@ -147,14 +159,16 @@ public class ChessBoardGui extends JPanel {
         return validMoves;
     }
 
-    public Piece getPiece(int row, int col) {
-        for (Piece piece : pieceList) {
-            if ((piece.getBox()).getYPosition() == row && (piece.getBox()).getXPosition() == col) {
-                return piece;
-            }
+    public static boolean isInGetValidMove(ArrayList<Move> validMoves, Move moveToCheck) {
+        for (Move validMove : validMoves) {
+          // Check if the move coordinates and piece being moved match
+          if (validMove.getPiece().equals(moveToCheck.getPiece())) {
+            return true;
+          }
         }
-        return null; // No piece found at that position
-    }
+        return false;
+      }
+
 
     public Piece getBox(int row, int col) {
         if (isValidSquare(row, col)) { // Check for valid square coordinates

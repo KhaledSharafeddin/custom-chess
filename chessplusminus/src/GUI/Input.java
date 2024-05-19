@@ -1,8 +1,11 @@
 package GUI;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import Game.Box;
 import Game.Color;
+import Game.Logic;
 import Game.Move;
 import Piece.Piece;
 
@@ -59,7 +62,7 @@ public class Input implements MouseListener, MouseMotionListener {
         else if(ChessBoardGui.isCurrentPlayerTurn(chessBoardGui.selectedPiece)&& chessBoardGui.selectedPiece!=null && piece == null ){
             chessBoardGui.move = new Move(chessBoardGui, chessBoardGui.selectedPiece, clickedCol, clickedRow);
             System.out.println(chessBoardGui.isValidMove(chessBoardGui.move)); 
-            if( chessBoardGui.isValidMove(chessBoardGui.move)){
+            if(Logic.isMoveValid(chessBoardGui, chessBoardGui.selectedPiece, clickedRow, clickedCol)){
                 Box destinationBox = new Box(clickedCol, clickedRow);
                 chessBoardGui.selectedPiece.setBox(destinationBox);
                 chessBoardGui.selectedPiece = null;
