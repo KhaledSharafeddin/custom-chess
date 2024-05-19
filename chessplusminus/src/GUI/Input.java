@@ -3,6 +3,7 @@ package GUI;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+import Game.SoundPlayer;
 import Game.Box;
 import Game.Color;
 import Game.Logic;
@@ -69,7 +70,6 @@ public class Input implements MouseListener, MouseMotionListener {
                 chessBoardGui.setEndTurn();
             }    
         }
-        
         chessBoardGui.repaint();
     }
 
