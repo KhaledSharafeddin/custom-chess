@@ -1,12 +1,9 @@
 package GUI;
 
 //PlayerTimer.java
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.awt.event.ActionListener;
 import javax.swing.*;
-
-import Game.Player;
 
 public class PlayerTimer extends JPanel {
     private int timeInSeconds;
@@ -29,7 +26,7 @@ public class PlayerTimer extends JPanel {
                 updateTime();
             }
         });
-        this.timer.start();
+        
     }
 
     private void updateTime() {
@@ -46,10 +43,13 @@ public class PlayerTimer extends JPanel {
     }
    public void setEndTurn(boolean endTurn) {
         this.endTurn = endTurn;
-        if (endTurn == true) {
-            timer.stop(); // Stop the timer if it's the end of the turn
-        } else {
-            timer.start(); // Start the timer if it's not the end of the turn
+        if(ChessBoardGui.isWhiteTurn){
+            GUI.player1Timer.timer.start();
+            GUI.player2Timer.timer.stop();
+            
+        }else{
+            GUI.player2Timer.timer.start();
+            GUI.player1Timer.timer.stop();
         }
     }
 

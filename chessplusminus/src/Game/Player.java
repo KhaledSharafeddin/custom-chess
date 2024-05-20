@@ -1,12 +1,11 @@
 package Game;
 
 //Player.java
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Vector;
-
 import GUI.ChessBoardGui;
 import Piece.Piece;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 public class Player {
     public static Color playerColor;
@@ -15,10 +14,13 @@ public class Player {
     public boolean isTurn;
     public int score;
     public static List<Piece> capturedPieces = new ArrayList<>();
+    public static int moveCount;
+    public List<String> moveHistory;
 
     public Player(Color playerColor, boolean goesFirst) {
         this.playerColor = playerColor;
         this.goesFirst = goesFirst;
+        this.moveCount = 0;
     }
 
     public Piece getKing(ChessBoardGui board) {

@@ -1,7 +1,8 @@
 package GUI;
 
-import javax.swing.*;
+import Game.Game;
 import java.awt.*;
+import javax.swing.*;
 
 public class GUI {
     static PlayerTimer player1Timer;
@@ -25,12 +26,11 @@ public class GUI {
         JPanel player1Panel = createPlayerPanel("Player 1's Timer", player1Timer);
         JPanel player2Panel = createPlayerPanel("Player 2's Timer", player2Timer);
 
-        // player1Timer.timer.start();
-        player2Timer.timer.stop();
+
 
         // Create move count labels
-        JLabel player1MoveCountLabel = new JLabel("Move Count for Black: ", SwingConstants.CENTER);
-        JLabel player2MoveCountLabel = new JLabel("Move Count for White: ", SwingConstants.CENTER);
+        JLabel player1MoveCountLabel = new JLabel("Move Count for Black: " + Game.player2.moveCount, SwingConstants.CENTER);
+        JLabel player2MoveCountLabel = new JLabel("Move Count for White: " + Game.player1.moveCount, SwingConstants.CENTER);
 
         // Create a panel to hold move count labels
         JPanel moveCountPanel = new JPanel(new GridLayout(2, 1));
