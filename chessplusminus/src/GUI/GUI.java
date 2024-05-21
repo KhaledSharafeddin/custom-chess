@@ -153,12 +153,9 @@ public class GUI {
         player1Timer = new PlayerTimer(5 * 60); // 5 minutes for player 1
         player2Timer = new PlayerTimer(5 * 60); // 5 minutes for player 2
     
-        // Create move count labels with padding
-        JLabel player1MoveCountLabel = new JLabel("White's Move Count: " + Game.player1.moveCount, SwingConstants.CENTER);
-        player1MoveCountLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Add padding above the label
-    
-        JLabel player2MoveCountLabel = new JLabel("Black's Move Count: " + Game.player2.moveCount, SwingConstants.CENTER);
-        player2MoveCountLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Add padding above the label
+        // Create move count labels
+        JLabel player1MoveCountLabel = new JLabel("Move Count for White: " + Game.player1.moveCount, SwingConstants.CENTER);
+        JLabel player2MoveCountLabel = new JLabel("Move Count for Black: " + Game.player2.moveCount, SwingConstants.CENTER);
     
         // Create panels for player timers with labels and move count
         JPanel player1Panel = createPlayerPanel("White's Timer", player1Timer, player1MoveCountLabel);
@@ -183,19 +180,23 @@ public class GUI {
         JLabel label = new JLabel(labelText, SwingConstants.CENTER);
         panel.add(label, BorderLayout.NORTH);
         panel.add(playerTimer, BorderLayout.CENTER);
-    
+
         // Create a panel for the move count and captured pieces label
         JPanel bottomPanel = new JPanel(new GridLayout(2, 1));
         bottomPanel.add(moveCountLabel);
-    
+
+        // Add padding to move the move count label up
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 400, 0)); // Adjust the top padding as needed
+
         JLabel capturedPiecesLabel = new JLabel("Captured Pieces", SwingConstants.CENTER);
-        capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 380, 0)); // Add padding to the bottom
+        capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0)); // Add padding to the bottom
         bottomPanel.add(capturedPiecesLabel);
-    
+
         panel.add(bottomPanel, BorderLayout.SOUTH);
-    
+
         return panel;
     }
+
     
 }
 

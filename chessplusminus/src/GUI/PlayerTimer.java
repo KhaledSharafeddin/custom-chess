@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Font;
 //PlayerTimer.java
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,8 @@ public class PlayerTimer extends JPanel {
         // this.player = player;
         this.timeInSeconds = initialTimeInSeconds;
         this.label = new JLabel();
+        this.label.setFont(new Font(label.getFont().getName(), Font.PLAIN, 24)); // Set font size here
+
         this.add(label);
         this.endTurn = false;
 
