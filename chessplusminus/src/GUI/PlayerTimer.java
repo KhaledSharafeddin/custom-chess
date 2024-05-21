@@ -38,20 +38,28 @@ public class PlayerTimer extends JPanel {
             label.setText("Time's up!");
             timer.stop();
             endTurn = true;
-            handleGameOver();
+            handleGameOver(true);
         }
     }
 
-    public static void handleGameOver() {
+    public static void handleGameOver(Boolean bool) {
         JFrame gameOverFrame = new JFrame("Game Over");
         gameOverFrame.setLayout(new BorderLayout());
 
         JLabel gameOverLabel;
-
+        if(bool == true){
         if (ChessBoardGui.isWhiteTurn) {
             gameOverLabel = new JLabel("Black Wins!", SwingConstants.CENTER);
         } else {
             gameOverLabel = new JLabel("White Wins!", SwingConstants.CENTER);
+        }}
+        else{
+            if (!ChessBoardGui.isWhiteTurn) {
+                gameOverLabel = new JLabel("Black Wins!", SwingConstants.CENTER);
+            } else {
+                gameOverLabel = new JLabel("White Wins!", SwingConstants.CENTER);
+            }
+
         }
 
         gameOverLabel.setFont(new Font(gameOverLabel.getFont().getName(), Font.BOLD, 24));

@@ -64,7 +64,7 @@ public class Input implements MouseListener, MouseMotionListener {
                             System.out.println("I'm capturing, watch me!!");
                             //chessBoardGui.getPlayer(piece.getColor()).addToEnemyList(piece);
                             if(piece.getType() == Type.KING){
-                                GUI.handleGameOver();
+                                PlayerTimer.handleGameOver(false);
                             }
                             chessBoardGui.pieceList.remove(piece);
                         } else {
