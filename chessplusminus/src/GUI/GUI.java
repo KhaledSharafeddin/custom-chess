@@ -13,9 +13,9 @@ public class GUI {
 
     public static void main(String[] args) {
 
-        JFrame startupFrame = new JFrame("C+- Custom Chess");
-        startupFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        startupFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        JFrame mainMenuFrame = new JFrame("C+- Custom Chess");
+        mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // Create the panel for the buttons and welcome message
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -36,7 +36,7 @@ public class GUI {
         // Add action listeners to the buttons
         standardChessButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startupFrame.dispose();
+                mainMenuFrame.dispose();
                 // Call the method to open the main chess frame with standard mode
                 openMainChessFrame(false);
             }
@@ -44,7 +44,7 @@ public class GUI {
 
         customChessButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startupFrame.dispose();
+                mainMenuFrame.dispose();
                 // Call the method to open the main chess frame with custom mode
                 openMainChessFrame(true);
             }
@@ -66,17 +66,17 @@ public class GUI {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         // Add the main panel to the startup frame
-        startupFrame.add(mainPanel);
+        mainMenuFrame.add(mainPanel);
 
         // Make the startup frame visible
-        startupFrame.setVisible(true);
+        mainMenuFrame.setVisible(true);
     }
 
     
 
     // Method to show the rules in a new frame
     private static void showRulesFrame() {
-        JFrame rulesFrame = new JFrame("C+- Custom Chess - Game Rules");
+        JFrame rulesFrame = new JFrame("Game Rules");
         rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JTextArea rulesTextArea = new JTextArea();
