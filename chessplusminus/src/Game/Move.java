@@ -16,6 +16,8 @@ public class Move {
         this.piece = piece;
         this.newRow = newRow;
         this.newCol = newCol;
+        Player.moveCount+=1;
+        System.out.println(Player.moveCount);
     }
 
     public ChessBoardGui getBoard() {
