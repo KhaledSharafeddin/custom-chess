@@ -110,12 +110,12 @@ public class GUI {
                 "<li>The objective of the game is to checkmate your opponent's king.</li>" +
                 "<li>Pieces move according to their specific rules. Here are the moves for each piece:</li>" +
                 "<ul>" +
-                "<li><img src='" + GUI.class.getResource("/Piece/pieces/pawn.png") + "'/> Pawn: Pawns move forward one square but capture diagonally. On their first move, pawns have the option to move forward two squares.</li>" +
-                "<li><img src='" + GUI.class.getResource("/Piece/pieces/rook.png") + "'/> Rook: Rooks move horizontally or vertically any number of squares.</li>" +
-                "<li><img src='" + GUI.class.getResource("/Piece/pieces/knight.png") + "'/> Knight: Knights move in an L-shape: two squares in one direction and then one square in a perpendicular direction.</li>" +
-                "<li><img src='" + GUI.class.getResource("/Piece/pieces/bishop.png") + "'/> Bishop: Bishops move diagonally any number of squares.</li>" +
-                "<li><img src='" + GUI.class.getResource("/Piece/pieces/queen.png") + "'/> Queen: Queens combine the moves of rooks and bishops, moving horizontally, vertically, or diagonally any number of squares.</li>" +
-                "<li><img src='" + GUI.class.getResource("/Piece/pieces/king.png") + "'/> King: Kings move one square in any direction.</li>" +
+                "<li><img src='" + ("/Piece/pieces/pawn.png") + "'/> Pawn: Pawns move forward one square but capture diagonally. On their first move, pawns have the option to move forward two squares.</li>" +
+                "<li><img src='" + ("/Piece/pieces/rook.png") + "'/> Rook: Rooks move horizontally or vertically any number of squares.</li>" +
+                "<li><img src='" + ("/Piece/pieces/knight.png") + "'/> Knight: Knights move in an L-shape: two squares in one direction and then one square in a perpendicular direction.</li>" +
+                "<li><img src='" + ("/Piece/pieces/bishop.png") + "'/> Bishop: Bishops move diagonally any number of squares.</li>" +
+                "<li><img src='" + ("/Piece/pieces/queen.png") + "'/> Queen: Queens combine the moves of rooks and bishops, moving horizontally, vertically, or diagonally any number of squares.</li>" +
+                "<li><img src='" + ("/Piece/pieces/king.png") + "'/> King: Kings move one square in any direction.</li>" +
                 "</ul>" +
                 "<li>Check occurs when a player's king is under threat of capture. The player must move the king out of check, block the check, or capture the threatening piece.</li>" +
                 "<li>Checkmate occurs when a player's king is in check and there are no legal moves to escape check. The game ends immediately, and the player in checkmate loses.</li>" +
@@ -132,6 +132,7 @@ public class GUI {
 
         rulesFrame.setVisible(true);
     }
+    
 
 
     
@@ -142,56 +143,59 @@ public class GUI {
         // Create the main frame
         JFrame frame = new JFrame("C+-: Custom Chess");
         frame.setLayout(new BorderLayout());
-
+    
         // Create a panel for the chess board with FlowLayout to center it
         JPanel chessPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ChessBoardGui board = new ChessBoardGui();
         chessPanel.add(board);
-
+    
         // Create player timers
         player1Timer = new PlayerTimer(5 * 60); // 5 minutes for player 1
         player2Timer = new PlayerTimer(5 * 60); // 5 minutes for player 2
-
-        // Create panels for player timers with labels
-        JPanel player1Panel = createPlayerPanel("Player 1's Timer", player1Timer);
-        JPanel player2Panel = createPlayerPanel("Player 2's Timer", player2Timer);
-
-        // Create move count labels
-        JLabel player1MoveCountLabel = new JLabel("Move Count for Black: " + Game.player2.moveCount, SwingConstants.CENTER);
-        JLabel player2MoveCountLabel = new JLabel("Move Count for White: " + Game.player1.moveCount, SwingConstants.CENTER);
-
-        // Create a panel to hold move count labels
-        JPanel moveCountPanel = new JPanel(new GridLayout(2, 1));
-        moveCountPanel.add(player1MoveCountLabel);
-        moveCountPanel.add(player2MoveCountLabel);
-
-        // Add player timer panels and move count panel to the frame
+    
+        // Create move count labels with padding
+        JLabel player1MoveCountLabel = new JLabel("White's Move Count: " + Game.player1.moveCount, SwingConstants.CENTER);
+        player1MoveCountLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Add padding above the label
+    
+        JLabel player2MoveCountLabel = new JLabel("Black's Move Count: " + Game.player2.moveCount, SwingConstants.CENTER);
+        player2MoveCountLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Add padding above the label
+    
+        // Create panels for player timers with labels and move count
+        JPanel player1Panel = createPlayerPanel("White's Timer", player1Timer, player1MoveCountLabel);
+        JPanel player2Panel = createPlayerPanel("Black's Timer", player2Timer, player2MoveCountLabel);
+    
+        // Add player timer panels to the frame
         frame.add(player1Panel, BorderLayout.WEST);
-        frame.add(moveCountPanel, BorderLayout.CENTER);
         frame.add(player2Panel, BorderLayout.EAST);
-
+    
         // Add the chess panel to the center of the frame
-        frame.add(chessPanel, BorderLayout.SOUTH);
-
+        frame.add(chessPanel, BorderLayout.CENTER);
+    
         // Configure the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
-
-    // Helper method to create player timer panels with labels
-    private static JPanel createPlayerPanel(String labelText, PlayerTimer playerTimer) {
+    
+    // Helper method to create player timer panels with labels and move count
+    private static JPanel createPlayerPanel(String labelText, PlayerTimer playerTimer, JLabel moveCountLabel) {
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel(labelText, SwingConstants.CENTER);
         panel.add(label, BorderLayout.NORTH);
         panel.add(playerTimer, BorderLayout.CENTER);
     
-        // Create a label for captured pieces
+        // Create a panel for the move count and captured pieces label
+        JPanel bottomPanel = new JPanel(new GridLayout(2, 1));
+        bottomPanel.add(moveCountLabel);
+    
         JLabel capturedPiecesLabel = new JLabel("Captured Pieces", SwingConstants.CENTER);
-        capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0)); // Add padding to the bottom
-        panel.add(capturedPiecesLabel, BorderLayout.SOUTH);
+        capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 380, 0)); // Add padding to the bottom
+        bottomPanel.add(capturedPiecesLabel);
+    
+        panel.add(bottomPanel, BorderLayout.SOUTH);
     
         return panel;
     }
+    
 }
 
