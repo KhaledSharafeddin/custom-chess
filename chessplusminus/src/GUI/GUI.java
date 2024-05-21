@@ -12,13 +12,13 @@ public class GUI {
     static PlayerTimer player1Timer;
     static PlayerTimer player2Timer;
 
-    public static void main(String[] args) {
+    public static void startGame(){
         JFrame mainMenuFrame = new JFrame("C+- Custom Chess");
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // Create the custom panel for the background
-        BackgroundPanel mainPanel = new BackgroundPanel("/GUI/chess.gif");
+        BackgroundPanel mainPanel = new BackgroundPanel("/res/chess.gif");
 
         // Create the welcome message label
         JLabel welcomeLabel = new JLabel("C+- Custom Chess", SwingConstants.CENTER);
@@ -102,29 +102,38 @@ public class GUI {
         JFrame rulesFrame = new JFrame("Game Rules");
         rulesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        JTextArea rulesTextArea = new JTextArea();
-        rulesTextArea.setText("Welcome to C+- Custom Chess!\n\n" +
-        "Here are the basic rules:\n\n" +
-        "1. Each player starts with 16 pieces: 1 king, 1 queen, 2 rooks, 2 knights, 2 bishops, and 8 pawns.\n" +
-        "2. The objective of the game is to checkmate your opponent's king.\n" +
-        "3. Pieces move according to their specific rules. Here are the moves for each piece:\n\n" +
-        "   - Pawn: Pawns move forward one square but capture diagonally. On their first move, pawns have the option to move forward two squares.\n" +
-        "   - Rook: Rooks move horizontally or vertically any number of squares.\n" +
-        "   - Knight: Knights move in an L-shape: two squares in one direction and then one square in a perpendicular direction.\n" +
-        "   - Bishop: Bishops move diagonally any number of squares.\n" +
-        "   - Queen: Queens combine the moves of rooks and bishops, moving horizontally, vertically, or diagonally any number of squares.\n" +
-        "   - King: Kings move one square in any direction.\n\n" +
-        "4. Check occurs when a player's king is under threat of capture. The player must move the king out of check, block the check, or capture the threatening piece.\n" +
-        "5. Checkmate occurs when a player's king is in check and there are no legal moves to escape check. The game ends immediately, and the player in checkmate loses.\n\n" +
-        "For more detailed rules and strategies, consult a comprehensive chess guide or tutorial.");
-        rulesTextArea.setEditable(false);
+        String rulesText = "<html>" +
+                "<h1>Welcome to C+- Custom Chess!</h1>" +
+                "<h2>Here are the basic rules:</h2>" +
+                "<ol>" +
+                "<li>Each player starts with 16 pieces: 1 king, 1 queen, 2 rooks, 2 knights, 2 bishops, and 8 pawns.</li>" +
+                "<li>The objective of the game is to checkmate your opponent's king.</li>" +
+                "<li>Pieces move according to their specific rules. Here are the moves for each piece:</li>" +
+                "<ul>" +
+                "<li><img src='" + GUI.class.getResource("/Piece/pieces/pawn.png") + "'/> Pawn: Pawns move forward one square but capture diagonally. On their first move, pawns have the option to move forward two squares.</li>" +
+                "<li><img src='" + GUI.class.getResource("/Piece/pieces/rook.png") + "'/> Rook: Rooks move horizontally or vertically any number of squares.</li>" +
+                "<li><img src='" + GUI.class.getResource("/Piece/pieces/knight.png") + "'/> Knight: Knights move in an L-shape: two squares in one direction and then one square in a perpendicular direction.</li>" +
+                "<li><img src='" + GUI.class.getResource("/Piece/pieces/bishop.png") + "'/> Bishop: Bishops move diagonally any number of squares.</li>" +
+                "<li><img src='" + GUI.class.getResource("/Piece/pieces/queen.png") + "'/> Queen: Queens combine the moves of rooks and bishops, moving horizontally, vertically, or diagonally any number of squares.</li>" +
+                "<li><img src='" + GUI.class.getResource("/Piece/pieces/king.png") + "'/> King: Kings move one square in any direction.</li>" +
+                "</ul>" +
+                "<li>Check occurs when a player's king is under threat of capture. The player must move the king out of check, block the check, or capture the threatening piece.</li>" +
+                "<li>Checkmate occurs when a player's king is in check and there are no legal moves to escape check. The game ends immediately, and the player in checkmate loses.</li>" +
+                "</ol>" +
+                "<p>For more detailed rules and strategies, consult a comprehensive chess guide or tutorial.</p>" +
+                "</html>";
 
-        JScrollPane scrollPane = new JScrollPane(rulesTextArea);
+        JEditorPane rulesPane = new JEditorPane("text/html", rulesText);
+        rulesPane.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(rulesPane);
         rulesFrame.add(scrollPane);
         rulesFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         rulesFrame.setVisible(true);
     }
+
+
     
     
 
