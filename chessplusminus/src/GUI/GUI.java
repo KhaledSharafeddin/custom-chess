@@ -12,30 +12,47 @@ public class GUI {
     static PlayerTimer player1Timer;
     static PlayerTimer player2Timer;
 
-    public static void startGame(){
+    public static void startGame() {
         JFrame mainMenuFrame = new JFrame("C+- Custom Chess");
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+    
         // Create the custom panel for the background
         BackgroundPanel mainPanel = new BackgroundPanel("/res/chess.gif");
-
+    
         // Create the welcome message label
         JLabel welcomeLabel = new JLabel("C+- Custom Chess", SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        welcomeLabel.setOpaque(false); // Make the label background transparent
+        welcomeLabel.setFont(new Font("Serif", Font.BOLD, 36)); // Change font type and increase size
+        welcomeLabel.setForeground(Color.WHITE); // Set text color
+        welcomeLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Add padding
+        welcomeLabel.setOpaque(true); // Ensure the background is drawn
+        welcomeLabel.setBackground(new Color(0, 0, 0, 150)); // Set a semi-transparent background
+
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(welcomeLabel, BorderLayout.NORTH);
-
+    
         // Create the panel for the buttons
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
         buttonPanel.setOpaque(false); // Make the button panel background transparent
-
+    
         // Create the buttons
         JButton standardChessButton = new JButton("Standard Chess");
         JButton customChessButton = new JButton("Custom Chess");
         JButton rulesButton = new JButton("Game Rules");
-
+    
+        // Set preferred size and font for the buttons
+        Dimension buttonSize = new Dimension(10, 50); // Width, Height
+        Font buttonFont = new Font("Arial", Font.BOLD, 20);
+    
+        standardChessButton.setPreferredSize(buttonSize);
+        standardChessButton.setFont(buttonFont);
+    
+        customChessButton.setPreferredSize(buttonSize);
+        customChessButton.setFont(buttonFont);
+    
+        rulesButton.setPreferredSize(buttonSize);
+        rulesButton.setFont(buttonFont);
+    
         // Add action listeners to the buttons
         standardChessButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -44,7 +61,7 @@ public class GUI {
                 openMainChessFrame(false);
             }
         });
-
+    
         customChessButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mainMenuFrame.dispose();
@@ -52,28 +69,29 @@ public class GUI {
                 openMainChessFrame(true);
             }
         });
-
+    
         rulesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Show the rules in a new frame
                 showRulesFrame();
             }
         });
-
+    
         // Add the buttons to the button panel
         buttonPanel.add(standardChessButton);
         buttonPanel.add(customChessButton);
         buttonPanel.add(rulesButton);
-
+    
         // Add the button panel to the main panel
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-
+    
         // Add the main panel to the startup frame
         mainMenuFrame.add(mainPanel);
-
+    
         // Make the startup frame visible
         mainMenuFrame.setVisible(true);
     }
+    
 
     // Custom JPanel to display a GIF background
     static class BackgroundPanel extends JPanel {
@@ -139,7 +157,7 @@ public class GUI {
     
 
     // Method to open the main chess frame
-    static void openMainChessFrame(boolean isCustomMode) {
+    public static void openMainChessFrame(boolean isCustomMode) {
         // Get the timer duration from the user
         int timerDuration = getUserTimerChoice();
 
@@ -149,6 +167,8 @@ public class GUI {
 
         // Create a panel for the chess board with FlowLayout to center it
         JPanel chessPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        chessPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0)); // Adjust the top padding as needed
+
         ChessBoardGui board = new ChessBoardGui();
         chessPanel.add(board);
 
