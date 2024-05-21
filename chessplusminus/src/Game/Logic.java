@@ -13,6 +13,7 @@ public class Logic {
     public Logic() {
 
     }
+
     public boolean isCheck(ChessBoardGui board, Player player) {
         // Implementation for check logic
         for (Piece piece : board.getPieceList()) {
@@ -34,7 +35,7 @@ public class Logic {
         if (targetPiece == null || targetPiece.getColor() != piece.getColor()) {
             // Check if the move is valid for the specific piece type (implement logic for
             // each piece type here)
-            //System.out.println("I am here");
+            // System.out.println("I am here");
             return validatePieceMove(board, piece, piece.getBox().getYPosition(), piece.getBox().getXPosition(), newRow,
                     newCol);
         }
@@ -46,7 +47,7 @@ public class Logic {
             int newRow, int newCol) {
         switch (piece.getType()) {
             case PAWN:
-                return validatePawnMove(piece.getColor(), currentRow, currentCol, newRow, newCol);
+                return validatePawnMove(board, piece.getColor(), currentRow, currentCol, newRow, newCol);
             case KNIGHT:
                 return validateKnightMove(currentRow, currentCol, newRow, newCol);
             case BISHOP:
@@ -61,33 +62,44 @@ public class Logic {
         return false;
     }
 
-    private static boolean validatePawnMove(Color color, int currentRow, int currentCol, int newRow, int newCol) {
+    private static boolean validatePawnMove(ChessBoardGui board, Color color, int currentRow, int currentCol,
+            int newRow, int newCol) {
         int rowDifference = newRow - currentRow;
         int colDifference = Math.abs(newCol - currentCol);
 
-        if (color == Color.WHITE) {
-            // White pawns move up the board (decreasing row index)
-            if (rowDifference == -1 && colDifference == 0) {
-                // Move forward by one square
-                return true;
-            } else if (rowDifference == -2 && colDifference == 0 && currentRow == 6) {
-                // Move forward by two squares from the initial position
-                return true;
-            } else if (rowDifference == -1 && colDifference == 1) {
-                // Capture diagonally
-                return true;
+        // Check forward move (no column change)
+        if (colDifference == 0) {
+            if (color == Color.WHITE) {
+                if (rowDifference == -1 && board.getPiece(newRow, newCol) == null) {
+                    // Move forward by one square if it's empty
+                    return true;
+                } else if (rowDifference == -2 && currentRow == 6 && board.getPiece(currentRow - 1, currentCol) == null
+                        && board.getPiece(newRow, newCol) == null) {
+                    // Move forward by two squares from the initial position if both are empty
+                    return true;
+                }
+            } else if (color == Color.BLACK) {
+                if (rowDifference == 1 && board.getPiece(newRow, newCol) == null) {
+                    // Move forward by one square if it's empty
+                    return true;
+                } else if (rowDifference == 2 && currentRow == 1 && board.getPiece(currentRow + 1, currentCol) == null
+                        && board.getPiece(newRow, newCol) == null) {
+                    // Move forward by two squares from the initial position if both are empty
+                    return true;
+                }
             }
-        } else if (color == Color.BLACK) {
-            // Black pawns move down the board (increasing row index)
-            if (rowDifference == 1 && colDifference == 0) {
-                // Move forward by one square
-                return true;
-            } else if (rowDifference == 2 && colDifference == 0 && currentRow == 1) {
-                // Move forward by two squares from the initial position
-                return true;
-            } else if (rowDifference == 1 && colDifference == 1) {
-                // Capture diagonally
-                return true;
+        }
+
+        // Check diagonal capture
+        if (colDifference == 1) {
+            if (color == Color.WHITE && rowDifference == -1) {
+                Piece targetPiece = board.getPiece(newRow, newCol);
+                // Capture diagonally if there is an opponent's piece
+                return targetPiece != null && targetPiece.getColor() != Color.WHITE;
+            } else if (color == Color.BLACK && rowDifference == 1) {
+                Piece targetPiece = board.getPiece(newRow, newCol);
+                // Capture diagonally if there is an opponent's piece
+                return targetPiece != null && targetPiece.getColor() != Color.BLACK;
             }
         }
 
@@ -186,11 +198,10 @@ public class Logic {
         // Check if there's a piece to capture and if the colors are different
         if (capturedPiece != null && capturedPiece.getColor() != capturingPiece.getColor()) {
             return true;
-         
+
         }
         return false;
     }
-
 
     public boolean pawnCanCapture(Color color, Box currentBox, Box destinationBox) {
         int destXPosition = destinationBox.getXPosition();
