@@ -29,7 +29,6 @@ public class ChessBoardGui extends JPanel {
     public Move move;
     Input input = new Input(this);
     public static boolean isWhiteTurn;
-   
 
     public ChessBoardGui() {
         isWhiteTurn = true;
@@ -70,7 +69,6 @@ public class ChessBoardGui extends JPanel {
         }
         return null; // No piece found at that position
     }
-
 
     public void addPieces() {
 
@@ -115,31 +113,31 @@ public class ChessBoardGui extends JPanel {
         }
         // Paint the pieces
         for (Piece piece : pieceList) {
-            if(piece.getBox()!= null){
-            piece.paint(g2d); // Ensure each piece implements paint method
+            if (piece.getBox() != null) {
+                piece.paint(g2d); // Ensure each piece implements paint method
             }
         }
         // Paint the highlights
-        if (selectedPiece != null && isCurrentPlayerTurn(selectedPiece))  {
+        if (selectedPiece != null && isCurrentPlayerTurn(selectedPiece)) {
             for (Move move : getValidMoves(selectedPiece)) {
-            
-                //System.out.println("Yahoo");
+
+                // System.out.println("Yahoo");
                 int r = move.getNewRow();
                 int c = move.getNewCol();
-                g2d.setColor(new java.awt.Color(173, 205, 247, 107));
+                g2d.setColor(new java.awt.Color(0, 205, 0, 107));
                 g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
     }
-    
+
     public static boolean isCurrentPlayerTurn(Piece piece) {
         if (piece == null) {
             return false; // Not the current player's turn if no piece is clicked
         }
-        return  isWhiteTurn && piece.getColor() == Color.WHITE  ||
-               !isWhiteTurn && piece.getColor() == Color.BLACK;
-          
-    }  
+        return isWhiteTurn && piece.getColor() == Color.WHITE ||
+                !isWhiteTurn && piece.getColor() == Color.BLACK;
+
+    }
 
     public boolean isValidMove(Move move) {
         return Logic.isMoveValid(this, move.getPiece(), move.getNewRow(), move.getNewCol());
@@ -164,14 +162,13 @@ public class ChessBoardGui extends JPanel {
 
     public static boolean isInGetValidMove(ArrayList<Move> validMoves, Move moveToCheck) {
         for (Move validMove : validMoves) {
-          // Check if the move coordinates and piece being moved match
-          if (validMove.getPiece().equals(moveToCheck.getPiece())) {
-            return true;
-          }
+            // Check if the move coordinates and piece being moved match
+            if (validMove.getPiece().equals(moveToCheck.getPiece())) {
+                return true;
+            }
         }
         return false;
-      }
-
+    }
 
     public Piece getBox(int row, int col) {
         if (isValidSquare(row, col)) { // Check for valid square coordinates
@@ -200,24 +197,23 @@ public class ChessBoardGui extends JPanel {
         return pieceList;
     }
 
+    public void setEndTurn() {
+        // this.endTurn = endTurn;
 
-      public void setEndTurn() {
-        //this.endTurn = endTurn;
-        
-            // Stop the timer for the current player
-            if (isWhiteTurn) {
-                GUI.player1Timer.setEndTurn(true);
-            } else {
-                GUI.player2Timer.setEndTurn(true);
-            }
-            
-            // Switch turns and start the timer for the next player
-            isWhiteTurn = !isWhiteTurn;
-            if (isWhiteTurn) {
-                GUI.player1Timer.setEndTurn(false); // Start white player's timer
-            } else {
-                GUI.player2Timer.setEndTurn(false); // Start black player's timer
-            }
-        
+        // Stop the timer for the current player
+        if (isWhiteTurn) {
+            GUI.player1Timer.setEndTurn(true);
+        } else {
+            GUI.player2Timer.setEndTurn(true);
+        }
+
+        // Switch turns and start the timer for the next player
+        isWhiteTurn = !isWhiteTurn;
+        if (isWhiteTurn) {
+            GUI.player1Timer.setEndTurn(false); // Start white player's timer
+        } else {
+            GUI.player2Timer.setEndTurn(false); // Start black player's timer
+        }
+
     }
 }
