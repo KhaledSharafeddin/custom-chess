@@ -1,32 +1,35 @@
 package GUI;
 
+import javax.swing.*;
+
 import Game.Game;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.*;
 
 public class GUI {
     static PlayerTimer player1Timer;
     static PlayerTimer player2Timer;
 
     public static void main(String[] args) {
-
         JFrame mainMenuFrame = new JFrame("C+- Custom Chess");
         mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainMenuFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // Create the panel for the buttons and welcome message
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        // Create the custom panel for the background
+        BackgroundPanel mainPanel = new BackgroundPanel("/GUI/chess.gif");
 
         // Create the welcome message label
-        JLabel welcomeLabel = new JLabel("Welcome to C+- Custom Chess", SwingConstants.CENTER);
+        JLabel welcomeLabel = new JLabel("C+- Custom Chess", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        mainPanel.add(welcomeLabel, BorderLayout.CENTER);
+        welcomeLabel.setOpaque(false); // Make the label background transparent
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(welcomeLabel, BorderLayout.NORTH);
 
         // Create the panel for the buttons
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
+        buttonPanel.setOpaque(false); // Make the button panel background transparent
 
         // Create the buttons
         JButton standardChessButton = new JButton("Standard Chess");
@@ -70,6 +73,26 @@ public class GUI {
 
         // Make the startup frame visible
         mainMenuFrame.setVisible(true);
+    }
+
+    // Custom JPanel to display a GIF background
+    static class BackgroundPanel extends JPanel {
+        private Image backgroundImage;
+
+        public BackgroundPanel(String filePath) {
+            // Load the background image
+            ImageIcon icon = new ImageIcon(getClass().getResource(filePath));
+            this.backgroundImage = icon.getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (backgroundImage != null) {
+                // Draw the background image
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
     }
 
     
