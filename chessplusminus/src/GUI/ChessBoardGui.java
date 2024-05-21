@@ -20,12 +20,12 @@ import java.util.ArrayList;
 public class ChessBoardGui extends JPanel {
 
     public static final int TILE_SIZE = 85;
-    ArrayList<Piece> pieceList = new ArrayList<>();
+    public ArrayList<Piece> pieceList = new ArrayList<>();
     int row = 8;
     int column = 8;
     private Piece[][] board;
     private static ChessBoardGui instance;
-    public Piece selectedPiece;
+    public Piece selectedPiece = null;
     public Move move;
     Input input = new Input(this);
     public static boolean isWhiteTurn;
@@ -115,12 +115,15 @@ public class ChessBoardGui extends JPanel {
         }
         // Paint the pieces
         for (Piece piece : pieceList) {
+            if(piece.getBox()!= null){
             piece.paint(g2d); // Ensure each piece implements paint method
+            }
         }
         // Paint the highlights
         if (selectedPiece != null && isCurrentPlayerTurn(selectedPiece))  {
             for (Move move : getValidMoves(selectedPiece)) {
-                System.out.println("Yahoo");
+            
+                //System.out.println("Yahoo");
                 int r = move.getNewRow();
                 int c = move.getNewCol();
                 g2d.setColor(new java.awt.Color(2, 255, 0, 107));

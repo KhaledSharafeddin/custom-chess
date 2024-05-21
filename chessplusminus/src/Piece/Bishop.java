@@ -1,6 +1,6 @@
 package Piece;
 
-import Game.Box;
+import Game.*;
 import Game.Player;
 import Game.Color;
 import Game.Type;
@@ -44,9 +44,15 @@ public class Bishop implements Piece {
 
     @Override
     public Player getPlayer() {
-        return player;
+        if(color == Color.BLACK){
+            player = standardGame.player2;
+            return player;
+        }
+        else{
+            player = standardGame.player1;
+            return player;
+        }   
     }
-
     @Override
     public Box getBox() {
         return box;

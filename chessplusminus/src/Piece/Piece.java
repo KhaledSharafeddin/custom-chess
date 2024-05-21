@@ -1,6 +1,7 @@
 package Piece;
 //Piece.java
 import Game.Player;
+
 import Game.Box;
 import Game.Color;
 import Game.Type;
@@ -14,6 +15,7 @@ public interface Piece {
     Color getColor();
     Type getType();
     void paint(Graphics2D g2d);
+    //void whichPlayer();
     
 
 

@@ -4,6 +4,7 @@ package Piece;
 import Game.Box;
 import Game.Player;
 import Game.Color;
+import Game.standardGame;
 import Game.Type;
 import GUI.ChessBoardGui;
 
@@ -45,9 +46,15 @@ public class Rook implements Piece {
 
     @Override
     public Player getPlayer() {
-        return player;
-
-    };
+        if(color == Color.BLACK){
+            player = standardGame.player2;
+            return player;
+        }
+        else{
+            player = standardGame.player1;
+            return player;
+        }   
+    }
 
     @Override
     public Box getBox() {

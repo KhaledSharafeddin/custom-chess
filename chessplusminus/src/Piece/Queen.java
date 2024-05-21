@@ -3,6 +3,7 @@ package Piece;
 //Queen.java
 import Game.Box;
 import Game.Player;
+import Game.standardGame;
 import Game.Color;
 import Game.Type;
 import GUI.ChessBoardGui;
@@ -46,7 +47,14 @@ public class Queen implements Piece {
 
     @Override
     public Player getPlayer() {
-        return player;
+        if(color == Color.BLACK){
+            player = standardGame.player2;
+            return player;
+        }
+        else{
+            player = standardGame.player1;
+            return player;
+        }   
     }
 
     @Override

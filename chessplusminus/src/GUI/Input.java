@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import Game.SoundPlayer;
+import Game.standardGame;
 import Game.Box;
 import Game.Color;
 import Game.Logic;
@@ -22,76 +23,56 @@ public class Input implements MouseListener, MouseMotionListener {
      
     @Override
     public void mouseClicked(MouseEvent e) {
-        // clickedRow = e.getY() / ChessBoardGui.TILE_SIZE;
-        // clickedCol = e.getX() / ChessBoardGui.TILE_SIZE;
-
-        // if (isCurrentPlayerTurn(chessBoardGui.selectedPiece)) {
-        //     // Check if a piece is already selected
-        //     if (chessBoardGui.selectedPiece != null) {
-        //         // Try to move the selected piece to the clicked location
-        //         Box destinationBox = new Box(clickedCol, clickedRow);
-        //         if (chessBoardGui.isValidMove(new Move(chessBoardGui, chessBoardGui.selectedPiece, clickedCol, clickedRow))) {
-        //             chessBoardGui.selectedPiece.setBox(destinationBox);
-        //             chessBoardGui.selectedPiece = null; // Deselect the piece after moving
-        //         } else {
-        //             // Deselect the piece if the move is not valid
-        //             chessBoardGui.selectedPiece = null;
-        //         }
-        //     } else {
-        //         // Select a piece at the clicked location
-        //         Piece piece = chessBoardGui.getPiece(clickedRow, clickedCol);
-        //         if (piece != null) {
-        //             chessBoardGui.selectedPiece = piece;
-        //         }
-        //     }
-
-        //     chessBoardGui.repaint();
-        // }
+  
     }
     @Override
     public void mousePressed(MouseEvent e) {
         // System.out.println("Mouse pressed");
         clickedRow = e.getY() / ChessBoardGui.TILE_SIZE;
         clickedCol = e.getX() / ChessBoardGui.TILE_SIZE;
-        System.out.println("Mouse press");
+        //System.out.println("Mouse press");
 
         // Select a piece at the clicked location
         Piece piece = chessBoardGui.getPiece(clickedRow, clickedCol);
-        if (piece != null) {
+        if (piece != null && chessBoardGui.selectedPiece==null) {
+            System.out.println("I am assigning");
             chessBoardGui.selectedPiece = piece;   
         }
         else if(ChessBoardGui.isCurrentPlayerTurn(chessBoardGui.selectedPiece)&& chessBoardGui.selectedPiece!=null && piece == null ){
+            System.out.println("I am just moving");
             chessBoardGui.move = new Move(chessBoardGui, chessBoardGui.selectedPiece, clickedCol, clickedRow);
-            System.out.println(chessBoardGui.isValidMove(chessBoardGui.move)); 
+            //System.out.println(chessBoardGui.isValidMove(chessBoardGui.move)); 
             if(Logic.isMoveValid(chessBoardGui, chessBoardGui.selectedPiece, clickedRow, clickedCol)){
                 Box destinationBox = new Box(clickedCol, clickedRow);
                 chessBoardGui.selectedPiece.setBox(destinationBox);
                 chessBoardGui.selectedPiece = null;
                 chessBoardGui.setEndTurn();
             }    
-        }
+        }  else if (ChessBoardGui.isCurrentPlayerTurn(chessBoardGui.selectedPiece) && chessBoardGui.selectedPiece != null
+        && piece != null)  {
+            System.out.println("I am trying to capture");
+            chessBoardGui.move = new Move(chessBoardGui, chessBoardGui.selectedPiece, clickedCol, clickedRow);
+            //System.out.println(chessBoardGui.isValidMove(chessBoardGui.move)); 
+            if(Logic.isMoveValid(chessBoardGui, chessBoardGui.selectedPiece, clickedRow, clickedCol)){
+                Box destinationBox = new Box(clickedCol, clickedRow);
+                //piece.getPlayer().addToList(piece);
+                chessBoardGui.pieceList.remove(piece);
+                chessBoardGui.selectedPiece.setBox(destinationBox);
+            
+                chessBoardGui.selectedPiece = null;
+                chessBoardGui.setEndTurn();
+            }
+
+    
+   
+
+    }
         chessBoardGui.repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-    //     if (isCurrentPlayerTurn(chessBoardGui.selectedPiece)) {
-    //         if (chessBoardGui.selectedPiece != null) {
-    //             int row = e.getY() / ChessBoardGui.TILE_SIZE;
-    //             int col = e.getX() / ChessBoardGui.TILE_SIZE;
-                
-    //             Box destinationBox = new Box(col, row);
-    //             if (chessBoardGui.isValidMove(new Move(chessBoardGui, chessBoardGui.selectedPiece, col, row))) {
-    //                 chessBoardGui.selectedPiece.setBox(destinationBox);
-    //                 chessBoardGui.selectedPiece = null; // Deselect the piece after moving
-    //             }
-    //         }
-       
-    // }
-      
-    
-                   //chessBoardGui.selectedPiece = null; 
-                  // chessBoardGui.repaint();
+
     }
 
     @Override

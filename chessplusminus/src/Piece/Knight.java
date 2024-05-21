@@ -5,6 +5,7 @@ import Game.Box;
 import Game.Player;
 import Game.Color;
 import Game.Type;
+import Game.standardGame;
 import GUI.ChessBoardGui;
 
 import javax.imageio.ImageIO;
@@ -45,7 +46,14 @@ public class Knight implements Piece {
 
     @Override
     public Player getPlayer() {
-        return player;
+        if(color == Color.BLACK){
+            player = standardGame.player2;
+            return player;
+        }
+        else{
+            player = standardGame.player1;
+            return player;
+        }   
     }
 
     @Override

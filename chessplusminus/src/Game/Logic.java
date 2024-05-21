@@ -34,7 +34,7 @@ public class Logic {
         if (targetPiece == null || targetPiece.getColor() != piece.getColor()) {
             // Check if the move is valid for the specific piece type (implement logic for
             // each piece type here)
-            System.out.println("I am here");
+            //System.out.println("I am here");
             return validatePieceMove(board, piece, piece.getBox().getYPosition(), piece.getBox().getXPosition(), newRow,
                     newCol);
         }
@@ -178,6 +178,32 @@ public class Logic {
             destinationBox.setPiece(piece);
             currentBox.setPiece(null);
         }
+    }
+
+    public boolean canCapture(Color color, Piece capturingPiece, Box currentBox, Box capturedBox) {
+        Piece capturedPiece = capturedBox.getPiece(); // Assuming Box has a getPiece() method
+
+        // Check if there's a piece to capture and if the colors are different
+        if (capturedPiece != null && capturedPiece.getColor() != capturingPiece.getColor()) {
+            return true;
+         
+        }
+        return false;
+    }
+
+
+    public boolean pawnCanCapture(Color color, Box currentBox, Box destinationBox) {
+        int destXPosition = destinationBox.getXPosition();
+        int destYPosition = destinationBox.getYPosition();
+
+        // Check for valid pawn movement based on color
+        if (Math.abs(destXPosition - currentBox.xPosition) == 1 &&
+                ((color == Color.WHITE && destYPosition == currentBox.yPosition - 1) ||
+                        (color == Color.BLACK && destYPosition == currentBox.yPosition + 1))) {
+
+        }
+
+        return false;
     }
     // public static boolean isPieceCaptured(Piece.Piece piece){
     // Collections.sort(Player.capturedPieces);

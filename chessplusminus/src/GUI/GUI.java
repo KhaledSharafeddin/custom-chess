@@ -8,7 +8,8 @@ public class GUI {
     static PlayerTimer player1Timer;
     static PlayerTimer player2Timer;
 
-    public static void main(String[] args) {
+
+    public static void startGame(){
         // Create the main frame
         JFrame frame = new JFrame("C+-: Custom Chess");
         frame.setLayout(new BorderLayout());
@@ -49,7 +50,9 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
+
     }
+
 
     // Helper method to create player timer panels with labels
     private static JPanel createPlayerPanel(String labelText, PlayerTimer playerTimer) {

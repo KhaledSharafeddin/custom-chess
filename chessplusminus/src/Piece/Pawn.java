@@ -2,6 +2,7 @@ package Piece;
 
 import GUI.ChessBoardGui;
 //Pawn.java
+import Game.standardGame;
 import Game.Box;
 import Game.Player;
 import Game.Color;
@@ -28,6 +29,7 @@ public class Pawn implements Piece {
         this.color = color;
         loadImage();
     }
+    
 
     private void loadImage() {
         String imageName = (color == Color.WHITE) ? "pawn_white.png" : "pawn_black.png";
@@ -51,7 +53,14 @@ public class Pawn implements Piece {
 
     @Override
     public Player getPlayer() {
-        return player;
+        if(color == Color.BLACK){
+            player = standardGame.player2;
+            return player;
+        }
+        else{
+            player = standardGame.player1;
+            return player;
+        }   
     }
 
     @Override
