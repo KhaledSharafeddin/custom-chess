@@ -4,7 +4,11 @@ import Game.Box;
 import Game.Logic;
 import Game.Move;
 import Piece.Piece;
+import Game.Type;
 import java.awt.event.*;
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
 
 public class Input implements MouseListener, MouseMotionListener {
 
@@ -58,6 +62,10 @@ public class Input implements MouseListener, MouseMotionListener {
                         } else if (!ChessBoardGui.isCurrentPlayerTurn(piece)) {
                             // Capture the opponent's piece
                             System.out.println("I'm capturing, watch me!!");
+                            //chessBoardGui.getPlayer(piece.getColor()).addToEnemyList(piece);
+                            if(piece.getType() == Type.KING){
+                                GUI.handleGameOver();
+                            }
                             chessBoardGui.pieceList.remove(piece);
                         } else {
                             // Attempted to move to a square occupied by the player's own piece

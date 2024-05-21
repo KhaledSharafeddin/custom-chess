@@ -42,7 +42,7 @@ public class PlayerTimer extends JPanel {
         }
     }
 
-    private void handleGameOver() {
+    public static void handleGameOver() {
         JFrame gameOverFrame = new JFrame("Game Over");
         gameOverFrame.setLayout(new BorderLayout());
 
