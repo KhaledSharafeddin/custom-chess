@@ -139,41 +139,64 @@ public class GUI {
     
 
     // Method to open the main chess frame
-    private static void openMainChessFrame(boolean isCustomMode) {
+    static void openMainChessFrame(boolean isCustomMode) {
+        // Get the timer duration from the user
+        int timerDuration = getUserTimerChoice();
+
         // Create the main frame
         JFrame frame = new JFrame("C+-: Custom Chess");
         frame.setLayout(new BorderLayout());
-    
+
         // Create a panel for the chess board with FlowLayout to center it
         JPanel chessPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ChessBoardGui board = new ChessBoardGui();
         chessPanel.add(board);
-    
+
         // Create player timers
-        player1Timer = new PlayerTimer(5 * 60); // 5 minutes for player 1
-        player2Timer = new PlayerTimer(5 * 60); // 5 minutes for player 2
-    
+        player1Timer = new PlayerTimer(timerDuration);
+        player2Timer = new PlayerTimer(timerDuration);
+
         // Create move count labels
         JLabel player1MoveCountLabel = new JLabel("Move Count for White: " + Game.player1.moveCount, SwingConstants.CENTER);
         JLabel player2MoveCountLabel = new JLabel("Move Count for Black: " + Game.player2.moveCount, SwingConstants.CENTER);
-    
+
         // Create panels for player timers with labels and move count
         JPanel player1Panel = createPlayerPanel("White's Timer", player1Timer, player1MoveCountLabel);
         JPanel player2Panel = createPlayerPanel("Black's Timer", player2Timer, player2MoveCountLabel);
-    
+
         // Add player timer panels to the frame
         frame.add(player1Panel, BorderLayout.WEST);
         frame.add(player2Panel, BorderLayout.EAST);
-    
+
         // Add the chess panel to the center of the frame
         frame.add(chessPanel, BorderLayout.CENTER);
-    
+
         // Configure the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
+
+    private static int getUserTimerChoice() {
+        String[] options = {"1 minute", "5 minutes", "10 minutes", "15 minutes"};
+        int choice = JOptionPane.showOptionDialog(null, "Choose the timer duration:", "Timer Duration",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     
+        switch (choice) {
+            case 0:
+                return 1 * 60; // 1 minute
+            case 1:
+                return 5 * 60; // 5 minutes
+            case 2:
+                return 10 * 60; // 10 minutes
+            case 3:
+                return 15 * 60; // 15 minutes
+            default:
+                return 5 * 60; // Default to 5 minutes
+        }
+    }
+    
+
     // Helper method to create player timer panels with labels and move count
     private static JPanel createPlayerPanel(String labelText, PlayerTimer playerTimer, JLabel moveCountLabel) {
         JPanel panel = new JPanel(new BorderLayout());
@@ -196,7 +219,5 @@ public class GUI {
 
         return panel;
     }
-
-    
 }
 
