@@ -76,8 +76,8 @@ public class ChessBoardGui extends JPanel {
         pieceList.add(new Rook(new Box(0, 0), Color.BLACK));
         pieceList.add(new Knight(new Box(1, 0), Color.BLACK));
         pieceList.add(new Bishop(new Box(2, 0), Color.BLACK));
-        pieceList.add(new King(new Box(3, 0), Color.BLACK));
-        pieceList.add(new Queen(new Box(4, 0), Color.BLACK));
+        pieceList.add(new Queen(new Box(3, 0), Color.BLACK));
+        pieceList.add(new King(new Box(4, 0), Color.BLACK));
         pieceList.add(new Bishop(new Box(5, 0), Color.BLACK));
         pieceList.add(new Knight(new Box(6, 0), Color.BLACK));
         pieceList.add(new Rook(new Box(7, 0), Color.BLACK));
@@ -107,7 +107,7 @@ public class ChessBoardGui extends JPanel {
         // Paint the board
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < column; c++) {
-                g2d.setColor((c + r) % 2 == 0 ? new java.awt.Color(107, 72, 51) : new java.awt.Color(245, 203, 179));
+                g2d.setColor((c + r) % 2 == 0 ?  new java.awt.Color(245, 203, 179): new java.awt.Color(107, 72, 51));
                 g2d.fillRect(c * TILE_SIZE, r * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
